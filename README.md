@@ -7,6 +7,9 @@ Essa daqui é uma nova versão do https://github.com/Rilufi/coronga , todas as i
 Para os dados do Brasil: https://pypi.org/project/covid/
 Para os dados dos EUA e do mundo: https://pypi.org/project/COVID19Py/
 
+## Mortes 24h
+Adicionei um "Mortes em 24h" que funciona atualizando todo dia um csv que contém o número de mortos do dia anterior, então troque o número embaixo de "Mortos" com os dados do dia, que a partir do próximo dia ele fará isso automaticamente.
+
 ## Tweets
 Ele agora tweeta a primeira info e responde pra ele mesmo a segunda info em seguida, só precisa falar o user, substituindo onde está @user
 
