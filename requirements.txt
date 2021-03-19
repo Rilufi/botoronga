@@ -1,0 +1,4 @@
+covid-19
+covid
+tweepy
+pandas
