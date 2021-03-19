@@ -11,7 +11,7 @@ Para os dados dos EUA e do mundo: https://pypi.org/project/COVID19Py/
 Adicionei um "Mortes em 24h" que funciona atualizando todo dia um csv que contém o número de mortos do dia anterior, então troque o número embaixo de "Mortos" com os dados do dia, que a partir do próximo dia ele fará isso automaticamente.
 
 ## Tweets
-Ele agora tweeta a primeira info e responde pra ele mesmo a segunda info em seguida, só precisa falar o user, substituindo o @ do usuário onde está toReply = "user"
+Ele agora tweeta a primeira info e responde pra ele mesmo a segunda info em seguida, só precisa falar o user, substituindo 'user' com o @ do usuário onde está toReply = "user"
 
 ## Failsafe
 Como as vezes o repositório para os EUA e pro mundo não funciona direito por algum problema de permissão do API do heroku, mas o outro repositório também só tem infos do Brasil, eu coloquei um failsafe em que ele posta do Brasil e tenta postar dos EUA e pro mundo, se não conseguir fica só com Brasil.
