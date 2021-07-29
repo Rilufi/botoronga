@@ -18,3 +18,6 @@ Como as vezes o repositório para os EUA e pro mundo não funciona direito por a
 
 ## Por que outro repositório praticamente igual???
 Não, eu não estou querendo só encher linguiça no github, é que além da outra fonte de dados que eu usava não funcionar mais no pythonanywhere, eu adicionei essa resposta com mais info, mas como o outro repositório ainda funciona, não fazia sentido eu apenas substituir lá.
+
+## Gráficos
+Agora também temos gráficos! A versão mais nova que faz gráfico é o botoronga.py que chama o covidson.py pra fazer vários gráficos a partir dos dados de https://ahmednafies.github.io/covid/john_hopkins/
