@@ -21,3 +21,6 @@ Não, eu não estou querendo só encher linguiça no github, é que além da out
 
 ## Gráficos
 Agora também temos gráficos! A versão mais nova que faz gráfico é o botoronga.py que chama o covidson.py pra fazer vários gráficos a partir dos dados de https://ahmednafies.github.io/covid/john_hopkins/
+
+## Onde está o bot?
+Só entrar aqui pra encontrar o resultado: https://twitter.com/byuoritter ou procurar pelo Botoronga
