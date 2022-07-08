@@ -1,5 +1,6 @@
 covid-19
 covid
+COVID19Py
 tweepy
 pandas
 matplotlib
