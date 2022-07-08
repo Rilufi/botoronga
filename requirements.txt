@@ -1,6 +1,6 @@
 covid-19
 covid
 COVID19Py
-tweepy
+tweepy==3.10.0
 pandas
 matplotlib
