@@ -105,4 +105,4 @@ Fonte: https://covid.ourworldindata.org/"""
 
 #for tweet in tweets:
 #        api.update_with_media('covid_vac.png', "@" + 'botoronga' + mystring_vac, in_reply_to_status_id = tweet.id)
-api.update_with_media(covid_vac, "@" + 'botoronga' + mystring_vac, in_reply_to_status_id = tweet.id)
+api.update_with_media(covid_vac, mystring_vac)
