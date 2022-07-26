@@ -17,7 +17,11 @@ jobs:
 
         steps:
 
-            - uses: actions/checkout@v2
+            - name: Check the repo for changes
+              uses: actions/checkout@v2
+              with:
+                fetch-depth: 0
+                ref: ${{ github.event.pull_request.head.ref }}
             
             - name: Keep this repo alive
               uses: gautamkrishnar/keepalive-workflow@master
