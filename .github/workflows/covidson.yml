@@ -17,12 +17,6 @@ jobs:
 
         steps:
 
-            - name: Check the repo for changes
-              uses: actions/checkout@v2
-              with:
-                fetch-depth: 0
-                ref: ${{ github.event.pull_request.head.ref }}
-            
             - name: Keep this repo alive
               uses: gautamkrishnar/keepalive-workflow@master
 
@@ -34,6 +28,12 @@ jobs:
             - run: pip install -r requirements.txt
             - run: python covidson.py
             
+            - name: Check the repo for changes
+              uses: actions/checkout@v2
+              with:
+                fetch-depth: 0
+                ref: main
+
             - name: Commit and push
               run: |-
                 git config user.name "Rilufi"
