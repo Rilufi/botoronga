@@ -88,21 +88,4 @@ plt.xlabel('Date', fontsize=12, alpha=0.9)
 plt.title('Vacinações COVID-19', fontsize=18, weight='bold', alpha=0.9)
 
 # D) Celebrate!
-buf = io.BytesIO()
-plt.savefig(buf, format='png')
-#plt.savefig("covid_vac")
-buf.seek(0)
-covid_vac = Image.open(buf)
-
-#api.update_status("Testando migrar pro github")
-
-#tweets = api.user_timeline(screen_name = toReply, count=1)
-
-mystring_vac = """ Testando migrar pro github
-Vacinações por Centena pelo Mundo
-Dados relacionados ao total de doses administradas.
-Fonte: https://covid.ourworldindata.org/"""
-
-#for tweet in tweets:
-#        api.update_with_media('covid_vac.png', "@" + 'botoronga' + mystring_vac, in_reply_to_status_id = tweet.id)
-api.update_with_media(covid_vac, mystring_vac)
+plt.savefig("covid_vac")
