@@ -17,6 +17,12 @@ jobs:
 
         steps:
 
+            - name: Check the repo for changes
+              uses: actions/checkout@v2
+              with:
+                fetch-depth: 0
+                ref: main
+
             - name: Keep this repo alive
               uses: gautamkrishnar/keepalive-workflow@master
 
@@ -28,17 +34,11 @@ jobs:
             - run: pip install -r requirements.txt
             - run: python covidson.py
             
-            - name: Check the repo for changes
-              uses: actions/checkout@v2
-              with:
-                fetch-depth: 0
-                ref: main
+
 
             - name: Commit and push
-              run: |-
-                git config user.name "Rilufi"
-                git config user.email "actions@users.noreply.github.com"
-                git add -A
-                timestamp=$(date -u)
-                git commit -m "Latest data: ${timestamp}" || exit 0
-                git push
+
+              run: |
+                git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                git config --global user.name "github-actions[bot]"
+                git diff-index --quiet HEAD || (git commit -a -m'[bot] update files' --allow-empty && git push -f)
