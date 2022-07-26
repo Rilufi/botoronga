@@ -23,6 +23,10 @@ df.to_csv('all_dead.csv', index=False)
 
 mystring = f"""COVID-19 no Brasil
 
+Casos confirmados: {confirmed:,}
+Mortes: {deaths:,}
+Mortes em 24h: {all_dead:,}
+Confirmados ativos: {active:,}
 
 Fonte: https://ahmednafies.github.io/covid/john_hopkins/"""
 
