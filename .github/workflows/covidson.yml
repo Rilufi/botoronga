@@ -21,10 +21,13 @@ jobs:
             
             - uses: gautamkrishnar/keepalive-workflow@master
 
-            - name: Run the script 🚀
-
-              run: python3 /code/covidson.py
-            
+            - name: setup python
+              uses: actions/setup-python@v2
+              with:
+                python-version: 3.7 #install the python needed
+            - name: execute py script # run the run.py to get the latest data
+              run: |
+                python covidson.py
             - name: Commit the changes
             
               uses: stefanzweifel/git-auto-commit-action@v4
