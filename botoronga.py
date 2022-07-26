@@ -6,14 +6,7 @@ import os
 import COVID19Py
 from covid import Covid
 import pandas
-from credentials import *
-
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
-abspath = os.path.abspath(__file__)
-dname = os.path.dirname(abspath)
-os.chdir(dname)
+from auth import api
 
 covid = Covid()
 br_cases = covid.get_status_by_country_id(24)
@@ -39,11 +32,9 @@ Fonte: https://ahmednafies.github.io/covid/john_hopkins/"""
 
 api.update_status(mystring)
 
-toReply = "" #user of the bot for replies
+toReply = api.me().screen_name
 
 ### Gráfico de Vacina/centena
-
-os.system("python3.7 covidson.py")
 
 tweets = api.user_timeline(screen_name = toReply, count=1)
 
@@ -109,8 +100,6 @@ mystring_vac = """ Total de Mortes no Brasil e na Índia
 for tweet in tweets:
         api.update_with_media('covid_ind_totdeaths.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
 
-
-os.system("python3.7 rilufab.py")
 
 try:
     covid19 = COVID19Py.COVID19(data_source="jhu")
