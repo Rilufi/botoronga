@@ -1,7 +1,7 @@
 name: Covidson
 
 
-on: push
+on:# push
 
 #    schedule:
 
