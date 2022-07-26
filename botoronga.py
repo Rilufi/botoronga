@@ -28,7 +28,7 @@ Mortes: {deaths:,}
 Mortes em 24h: {all_dead:,}
 Confirmados ativos: {active:,}
 
-Fonte: https://ahmednafies.github.io/covid/john_hopkins/"""
+"""
 
 api.update_status(mystring)
 
