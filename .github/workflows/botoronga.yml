@@ -1,11 +1,11 @@
 name: Botoronga
 
 
-on: push
-#  workflow_run:
-#    workflows: ["Covidson"]
-#    types:
-#      - completed
+on:
+  workflow_run:
+    workflows: ["Covidson"]
+    types:
+      - completed
 
 jobs:
 
@@ -43,7 +43,3 @@ jobs:
             - name: Run the script 🚀
 
               run: docker-compose up
-            
-            - name: Commit the changes
-            
-              uses: stefanzweifel/git-auto-commit-action@v4
