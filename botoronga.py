@@ -49,7 +49,7 @@ confirmed_24 = int(us_info['new_cases'])
 deaths = int(us_info['total_deaths'])
 deaths_24 = int(us_info['new_deaths'])
 
-mystring_us = f"""COVID-19 nos EUA
+mystring_us = f""" COVID-19 nos EUA
 
 Casos confirmados: {confirmed:,}
 Casos em 24h: {confirmed_24:,}
@@ -78,7 +78,7 @@ confirmed_24 = int(wrl_info['new_cases'])
 deaths = int(wrl_info['total_deaths'])
 deaths_24 = int(wrl_info['new_deaths'])
 
-mystring_wrl = f"""COVID-19 no Mundo
+mystring_wrl = f""" COVID-19 no Mundo
 
 Casos confirmados: {confirmed:,}
 Casos em 24h: {confirmed_24:,}
