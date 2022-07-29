@@ -28,7 +28,7 @@ confirmed_24 = int(br_info['new_cases'])
 deaths = int(br_info['total_deaths'])
 deaths_24 = int(br_info['new_deaths'])
 
-mystring_br = f"""COVID-19 no Brasil
+mystring_br = f"""#COVID-19 no Brasil
 
 Casos confirmados: {confirmed:,}
 Casos em 24h: {confirmed_24:,}
