@@ -7,13 +7,11 @@ on:
 
         - cron: '0 10 * * *'
 
-
 jobs:
 
     build:
 
         runs-on: ubuntu-latest
-
 
         steps:
 
@@ -22,9 +20,6 @@ jobs:
               with:
                 fetch-depth: 0
                 ref: ${{ github.event.pull_request.head.ref }}
-
-            - name: Keep this repo alive
-              uses: gautamkrishnar/keepalive-workflow@master
 
             - name: Setup python and run
               uses: actions/setup-python@v4
