@@ -81,7 +81,7 @@ plt.xlabel('Data', fontsize=12, alpha=0.9)
 plt.title('Mortes em 24h por COVID-19 no mundo', fontsize=18, weight='bold', alpha=0.9)
 
 # D) Celebrate!
-plt.savefig("world_deaths")
+plt.savefig("data/world_deaths")
 
 
 
