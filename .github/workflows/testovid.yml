@@ -1,7 +1,7 @@
 name: Testovid
 
 
-#on:
+#on: push
 
   #  schedule:
 
@@ -20,7 +20,10 @@ jobs:
               with:
                 fetch-depth: 0
                 ref: ${{ github.event.pull_request.head.ref }}
-
+            - name: Checkout game state
+              uses: actions/checkout@v2
+              with:
+                ref: save
             - name: Setup python and run
               uses: actions/setup-python@v4
               with:
