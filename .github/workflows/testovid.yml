@@ -1,6 +1,6 @@
 name: Testovid
 
-on: push
+#on: push
  # workflow_dispatch:
  # schedule:
  #   - cron: "*/5 * * * *"
