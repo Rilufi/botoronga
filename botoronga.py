@@ -106,7 +106,7 @@ Dados relacionados ao total de doses administradas.
 Fonte: https://covid.ourworldindata.org/"""
 
 for tweet in tweets:
-        api.update_with_media('covid_vac.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
+        api.update_with_media('data/covid_vac.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
 
 
 ### Gráfico de porcentagem
@@ -120,7 +120,7 @@ Fonte: https://covid.ourworldindata.org/"""
 tweets = api.user_timeline(screen_name = toReply, count=1)
 
 for tweet in tweets:
-        api.update_with_media('covid_vactot.png', "@" + toReply + mystring_vacbr, in_reply_to_status_id = tweet.id)
+        api.update_with_media('data/covid_vactot.png', "@" + toReply + mystring_vacbr, in_reply_to_status_id = tweet.id)
 
 
 ### Gráfico de Casos Mundo
@@ -132,7 +132,7 @@ mystring_vac = """ Novos Casos Diários Confirmados no Mundo
 Fonte: https://covid.ourworldindata.org"""
 
 for tweet in tweets:
-        api.update_with_media('world_cases.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
+        api.update_with_media('data/world_cases.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
 
 
 ### Gráfico de Casos BR
@@ -144,7 +144,7 @@ mystring_vac = """ Novos Casos Diários Confirmados no Brasil
 Fonte: https://covid.ourworldindata.org"""
 
 for tweet in tweets:
-        api.update_with_media('br_cases.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
+        api.update_with_media('data/br_cases.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
 
 
 
@@ -157,7 +157,7 @@ mystring_vac = """ Novos Casos Diários Confirmados no Brasil, EUA e França
 Fonte: https://covid.ourworldindata.org"""
 
 for tweet in tweets:
-        api.update_with_media('covid_ind_cases.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
+        api.update_with_media('data/covid_ind_cases.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
 
 
 
@@ -170,7 +170,7 @@ mystring_vac = """ Mortes em 24h no Mundo
 Fonte: https://covid.ourworldindata.org"""
 
 for tweet in tweets:
-        api.update_with_media('world_deaths.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
+        api.update_with_media('data/world_deaths.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
 
 
 ### Gráfico de Mortes 24h Brasil
@@ -182,7 +182,7 @@ mystring_vac = """ Mortes em 24h no Brasil
 Fonte: https://covid.ourworldindata.org"""
 
 for tweet in tweets:
-        api.update_with_media('br_deaths.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
+        api.update_with_media('data/br_deaths.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
 
 
 
@@ -195,7 +195,7 @@ mystring_vac = """ Mortes em 24h no Brasil, EUA e França
 Fonte: https://covid.ourworldindata.org"""
 
 for tweet in tweets:
-        api.update_with_media('covid_ind_deaths.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
+        api.update_with_media('data/covid_ind_deaths.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
 
 
 ### Gráfico de Mortes Total EUA
@@ -208,4 +208,17 @@ mystring_vac = """ Total de Mortes no Brasil e nos EUA
 Fonte: https://covid.ourworldindata.org"""
 
 for tweet in tweets:
-        api.update_with_media('covid_ind_totdeaths.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
+        api.update_with_media('data/covid_ind_totdeaths.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
+
+
+### Gráfico de Mortes Total Mundo
+
+
+tweets = api.user_timeline(screen_name = toReply, count=1)
+
+mystring_vac = """ Total de Mortes no Mundo
+
+Fonte: https://covid.ourworldindata.org"""
+
+for tweet in tweets:
+        api.update_with_media('data/world_totdeaths.png', "@" + toReply + mystring_vac, in_reply_to_status_id = tweet.id)
