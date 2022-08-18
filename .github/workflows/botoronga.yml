@@ -3,7 +3,7 @@ name: Botoronga
 
 on:
   workflow_run:
-    workflows: ["Covidson"]
+    workflows: ["Testovid"]
     types:
       - completed
 
