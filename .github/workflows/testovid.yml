@@ -12,11 +12,11 @@ jobs:
     steps:
       - name: Git checkout code
         uses: actions/checkout@v2
-      - name: Checkout graphs state
-        uses: actions/checkout@v2
-        with:
-          ref: main
-          path: data
+  #    - name: Checkout graphs state
+  #      uses: actions/checkout@v2
+  #      with:
+  #        ref: main
+ #         path: data
       - name: Setup python and run
         uses: actions/setup-python@v4
         with:
