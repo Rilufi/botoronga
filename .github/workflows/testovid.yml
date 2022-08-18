@@ -15,7 +15,7 @@ jobs:
       - name: Checkout graphs state
         uses: actions/checkout@v2
         with:
-          ref: save
+          ref: main
           path: data
       - name: Setup python and run
         uses: actions/setup-python@v4
