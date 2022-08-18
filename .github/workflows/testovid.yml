@@ -2,11 +2,8 @@ name: Testovid
 
 
 on: push
-
   #  schedule:
-
       #  - cron: '0 10 * * *'
-
 
 jobs:
   graphs:
