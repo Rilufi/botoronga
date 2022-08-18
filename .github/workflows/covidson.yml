@@ -19,7 +19,7 @@ jobs:
            python-version: '3.7'
            cache: 'pip'
       - run: pip install -r requirements.txt
-      - run: python covidson.py
+      - run: python data/covidson.py
 
       - name: Commit and push
         run: |-
