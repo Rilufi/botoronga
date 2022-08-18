@@ -1,7 +1,7 @@
 name: Testovid
 
 
-on: push
+#on: push
 
   #  schedule:
 
