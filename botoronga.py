@@ -23,19 +23,36 @@ date = df['date']
 
 br_info = df[(loc == 'Brazil') & (date == yesterday)]
 
-confirmed = int(br_info['total_cases'])
-confirmed_24 = int(br_info['new_cases'])
-deaths = int(br_info['total_deaths'])
-deaths_24 = int(br_info['new_deaths'])
+try:
+    confirmed = int(br_info['total_cases'])
+    confirmed_24 = int(br_info['new_cases'])
+    deaths = int(br_info['total_deaths'])
+    deaths_24 = int(br_info['new_deaths'])
 
-mystring_br = f"""#COVID-19 no Brasil
+    mystring_br = f"""#COVID-19 no Brasil
 
-Casos confirmados: {confirmed:,}
-Casos em 24h: {confirmed_24:,}
-Total de mortes: {deaths:,}
-Mortes em 24h: {deaths_24:,}
+    Casos confirmados: {confirmed:,}
+    Casos em 24h: {confirmed_24:,}
+    Total de mortes: {deaths:,}
+    Mortes em 24h: {deaths_24:,}
 
-Fonte: https://covid.ourworldindata.org"""
+    Fonte: https://covid.ourworldindata.org"""
+
+except:
+    confirmed = int(br_info['total_cases'])
+    deaths = int(br_info['total_deaths'])
+    deaths_24 = int(br_info['new_deaths'])
+
+    mystring_br = f"""#COVID-19 no Brasil
+
+    Casos confirmados: {confirmed:,}
+    Total de mortes: {deaths:,}
+    Mortes em 24h: {deaths_24:,}
+
+    Fonte: https://covid.ourworldindata.org"""
+
+
+
 
 api.update_status(mystring_br)
 
