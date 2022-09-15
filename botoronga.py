@@ -24,10 +24,10 @@ date = df['date']
 br_info = df[(loc == 'Brazil') & (date == yesterday)]
 
 try:
-    confirmed = int(br_info['total_cases'])
-    confirmed_24 = int(br_info['new_cases'])
-    deaths = int(br_info['total_deaths'])
-    deaths_24 = int(br_info['new_deaths'])
+    confirmed = float(br_info['total_cases'])
+    confirmed_24 = float(br_info['new_cases'])
+    deaths = float(br_info['total_deaths'])
+    deaths_24 = float(br_info['new_deaths'])
 
     mystring_br = f"""#COVID-19 no Brasil
 
@@ -44,10 +44,10 @@ try:
 
     us_info = df[(loc == 'United States') & (date == yesterday)]
 
-    confirmed = int(us_info['total_cases'])
-    confirmed_24 = int(us_info['new_cases'])
-    deaths = int(us_info['total_deaths'])
-    deaths_24 = int(us_info['new_deaths'])
+    confirmed = float(us_info['total_cases'])
+    confirmed_24 = float(us_info['new_cases'])
+    deaths = float(us_info['total_deaths'])
+    deaths_24 = float(us_info['new_deaths'])
 
     mystring_us = f""" COVID-19 nos EUA
 
