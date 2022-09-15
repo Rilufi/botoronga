@@ -1,11 +1,11 @@
 name: Botoronga
 
 
-on: push
-#  workflow_run:
-#    workflows: ["Covidson"]
-#    types:
- #     - completed
+on:
+  workflow_run:
+    workflows: ["Covidson"]
+    types:
+      - completed
 
 jobs:
 
