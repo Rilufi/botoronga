@@ -24,6 +24,51 @@ date = df['date']
 br_info = df[(loc == 'Brazil') & (date == yesterday)]
 
 try:
+    confirmed = int(br_info['total_cases'])
+    confirmed_24 = int(br_info['new_cases'])
+    deaths = int(br_info['total_deaths'])
+    deaths_24 = int(br_info['new_deaths'])
+
+    mystring_br = f"""#COVID-19 no Brasil
+
+    Casos confirmados: {confirmed:,}
+    Casos em 24h: {confirmed_24:,}
+    Total de mortes: {deaths:,}
+    Mortes em 24h: {deaths_24:,}
+
+    Fonte: https://covid.ourworldindata.org"""
+
+    api.update_status(mystring_br)
+    
+    # Dados EUA
+
+    us_info = df[(loc == 'United States') & (date == yesterday)]
+
+    confirmed = int(us_info['total_cases'])
+    confirmed_24 = int(us_info['new_cases'])
+    deaths = int(us_info['total_deaths'])
+    deaths_24 = int(us_info['new_deaths'])
+
+    mystring_us = f""" COVID-19 nos EUA
+
+    Casos confirmados: {confirmed:,}
+    Casos em 24h: {confirmed_24:,}
+    Total de mortes: {deaths:,}
+    Mortes em 24h: {deaths_24:,}
+
+    Fonte: https://covid.ourworldindata.org"""
+
+
+    # Find the last tweet and reply
+
+    toReply = api.me().screen_name
+
+    tweets = api.user_timeline(screen_name = toReply, count=1)
+
+    for tweet in tweets:
+            api.update_status("@" + toReply + mystring_us, in_reply_to_status_id = tweet.id)
+
+except:
     confirmed = float(br_info['total_cases'])
     confirmed_24 = float(br_info['new_cases'])
     deaths = float(br_info['total_deaths'])
@@ -67,30 +112,6 @@ try:
 
     for tweet in tweets:
             api.update_status("@" + toReply + mystring_us, in_reply_to_status_id = tweet.id)
-
-except:
-    # Dados EUA
-
-    us_info = df[(loc == 'United States') & (date == yesterday)]
-
-    confirmed = int(us_info['total_cases'])
-    confirmed_24 = int(us_info['new_cases'])
-    deaths = int(us_info['total_deaths'])
-    deaths_24 = int(us_info['new_deaths'])
-
-    mystring_us = f""" COVID-19 nos EUA
-
-    Casos confirmados: {confirmed:,}
-    Casos em 24h: {confirmed_24:,}
-    Total de mortes: {deaths:,}
-    Mortes em 24h: {deaths_24:,}
-
-    Fonte: https://covid.ourworldindata.org"""
-
-
-    # Post as first tweet
-
-    api.update_status(mystring_us)
 
 
 
