@@ -68,11 +68,11 @@ try:
     for tweet in tweets:
             api.update_status("@" + toReply + mystring_us, in_reply_to_status_id = tweet.id)
 
-except:
-    confirmed = float(br_info['total_cases'])
-    confirmed_24 = float(br_info['new_cases'])
-    deaths = float(br_info['total_deaths'])
-    deaths_24 = float(br_info['new_deaths'])
+except ValueError:
+    confirmed = int(br_info['total_cases'])
+    confirmed_24 = 0
+    deaths = int(br_info['total_deaths'])
+    deaths_24 = 0
 
     mystring_br = f"""#COVID-19 no Brasil
 
@@ -89,10 +89,8 @@ except:
 
     us_info = df[(loc == 'United States') & (date == yesterday)]
 
-    confirmed = float(us_info['total_cases'])
-    confirmed_24 = float(us_info['new_cases'])
-    deaths = float(us_info['total_deaths'])
-    deaths_24 = float(us_info['new_deaths'])
+    confirmed = int(us_info['total_cases'])
+    deaths = int(us_info['total_deaths'])
 
     mystring_us = f""" COVID-19 nos EUA
 
