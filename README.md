@@ -14,3 +14,6 @@ Agora também temos gráficos! O script que faz os gráficos é o covidson.py, c
 
 ## Onde está o bot?
 Só entrar aqui pra encontrar o resultado: [Botoronga](https://twitter.com/botoronga)
+
+## Atualização 05/05/23
+Já que a OMS declarou o fim da pandemia, a função de postar informações sobre COVID deste bot no momento está pausada. No entanto, continuamos funcionando jogando Tetris com os outros dois bots, a partir de um código contido no repositório [Tetris](https://github.com/Rilufi/twitris).
