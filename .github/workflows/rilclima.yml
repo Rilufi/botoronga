@@ -1,7 +1,7 @@
 name: Rilclima
 
 
-on: push
+on:# push
 
   #  schedule:
 
@@ -41,7 +41,7 @@ jobs:
           pip install -r requirements.txt
 
       # Use HEREDOC for `run` to escape possible single and double quotes in the message.
-      - name: cat story 🐱
+      - name: weather now 🌤️
         env:
                   CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
 
