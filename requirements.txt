@@ -1,4 +1,2 @@
-tweepy==3.10.0
-pandas
-matplotlib
+tweepy
 requests
