@@ -25,6 +25,6 @@ try:
 
     # Imprimindo a temperatura atual em Celsius
     temp_now = f'Temperatura atual em São Paulo: {temperatura_atual_celsius:.2f}°C'
-    api.client.create_tweet(text=temp_now)
+    client.create_tweet(text=temp_now)
 except:
     pass
