@@ -1,5 +1,5 @@
 import requests
-from auth import API_KEY, api
+from auth import API_KEY, client
 
 
 # Coordenadas geográficas de São Paulo
@@ -25,6 +25,6 @@ try:
 
     # Imprimindo a temperatura atual em Celsius
     temp_now = f'Temperatura atual em São Paulo: {temperatura_atual_celsius:.2f}°C'
-    api.update_status(temp_now)
+    api.client.create_tweet(text=temp_now)
 except:
     pass
