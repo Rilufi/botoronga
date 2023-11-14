@@ -1,3 +1,4 @@
 tweepy
 requests
 selenium
+webdriver_manager
