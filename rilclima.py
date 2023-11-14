@@ -119,7 +119,7 @@ try:
     # Imprimindo a temperatura atual em Celsius
     temp_now = f'Temperatura atual em São Paulo: {temperatura_atual_celsius:.2f}°C'
     #client.create_tweet(text=temp_now)
-   	media = api.media_upload("temp_sp.png")
-	client.create_tweet(text=temp_now, media_ids=[media.media_id])
+    media = api.media_upload("temp_sp.png")
+    client.create_tweet(text=temp_now, media_ids=[media.media_id])
 except:
     pass
