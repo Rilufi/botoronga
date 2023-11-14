@@ -3,7 +3,7 @@ name: Rilclima
 
 on: push
 
-    schedule:
+   # schedule:
 
 #        - cron: '0 * * * *'
 
