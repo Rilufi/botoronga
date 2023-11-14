@@ -1,6 +1,5 @@
 import requests
 from auth import API_KEY, client, api
-from secrets import username, password
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 #from webdriver_manager.core.utils import ChromeType
