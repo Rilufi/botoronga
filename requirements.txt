@@ -4,3 +4,4 @@ selenium
 webdriver_manager
 matplotlib
 pandas
+lxml
