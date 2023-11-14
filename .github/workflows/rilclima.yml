@@ -1,11 +1,11 @@
 name: Rilclima
 
 
-on:
+on: push
 
     schedule:
 
-        - cron: '0 * * * *'
+#        - cron: '0 * * * *'
 
 
 jobs:
@@ -34,6 +34,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
+
+      - name: Remove Chrome
+        run: sudo apt purge google-chrome-stable
 
       - name: Install packages ⚙
         run: |
