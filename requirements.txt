@@ -2,3 +2,5 @@ tweepy
 requests
 selenium
 webdriver_manager
+matplotlib
+pandas
