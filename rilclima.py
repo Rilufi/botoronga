@@ -74,16 +74,16 @@ df['Temperature'] = df['Temperature'].round(2)
 # Salva os dados em um arquivo CSV
 df.to_csv('clima_sp_data.csv', index=False)
 
-
 # Interpolação para suavizar o gráfico
 interp_func = interp1d(df.index, df['Temperature'], kind='cubic')
 index_smooth = pd.RangeIndex(start=df.index.min(), stop=df.index.max(), step=0.1)
 df_smooth = pd.DataFrame({'Temperature': interp_func(index_smooth)}, index=index_smooth)
 
+
 # Cria um gráfico de linha suavizado
 plt.plot(df_smooth.index, df_smooth['Temperature'], marker='o', label='Suavizado')
 plt.scatter(df.index, df['Temperature'], color='red', label='Original', marker='x')
-plt.title('Variação da Temperatura em São Paulo (2023-11-14)')
+#plt.title('Variação da Temperatura em São Paulo (2023-11-14)')
 plt.xlabel('Hora do Dia')
 plt.ylabel('Temperatura (°C)')
 plt.grid(True)
@@ -93,9 +93,9 @@ plt.legend()
 
 
 # Cria um gráfico de linha
-#data = date.today().strftime('%d/%m/%Y')
+data = date.today().strftime('%d/%m/%Y')
 #plt.plot(df['Time'], df['Temperature'], marker='o')
-#plt.title(f'Variação da Temperatura em São Paulo {data}')
+plt.title(f'Variação da Temperatura em São Paulo {data}')
 #plt.xlabel('Hora do Dia')
 #plt.ylabel('Temperatura (°C)')
 #plt.grid(True)
