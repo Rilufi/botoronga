@@ -78,8 +78,10 @@ df.to_csv('clima_sp_data.csv', index=False)
 smoothed_temperature = np.convolve(df['Temperature'], np.ones(10)/10, mode='valid')
 
 # Cria um gráfico de linha suavizado
+data = date.today().strftime('%d/%m/%Y')
+plt.title(f'Variação da Temperatura em São Paulo {data}')
 plt.plot(df['Time'][:len(smoothed_temperature)], smoothed_temperature, marker='o', label='Suavizado')
-plt.scatter(df['Time'], df['Temperature'], color='red', label='Original', marker='x')
+#plt.scatter(df['Time'], df['Temperature'], color='red', label='Original', marker='x')
 plt.xlabel('Hora do Dia')
 plt.ylabel('Temperatura (°C)')
 plt.grid(True)
@@ -89,9 +91,9 @@ plt.legend()
 
 
 # Cria um gráfico de linha
-data = date.today().strftime('%d/%m/%Y')
+#data = date.today().strftime('%d/%m/%Y')
 #plt.plot(df['Time'], df['Temperature'], marker='o')
-plt.title(f'Variação da Temperatura em São Paulo {data}')
+#plt.title(f'Variação da Temperatura em São Paulo {data}')
 #plt.xlabel('Hora do Dia')
 #plt.ylabel('Temperatura (°C)')
 #plt.grid(True)
@@ -99,7 +101,7 @@ plt.title(f'Variação da Temperatura em São Paulo {data}')
 #plt.tight_layout()
 
 # Mostra o gráfico
-plt.savefig("temp_sp")
+plt.savefig("temp_sp",dpi = 300, bbox_inches='tight')
 #plt.show()
 
 # Fecha o navegador
