@@ -81,7 +81,7 @@ poly_order = 3
 df_avg['Temperature_smooth'] = savgol_filter(df_avg['Temperature'], window_size, poly_order)
 
 # Cria um gráfico de linha suavizado
-plt.plot(df['Time'], df['Temperature_smooth'], marker='o', label='Suavizado')
+plt.plot(df_avg['Time'], df_avg['Temperature_smooth'], marker='o', label='Suavizado')
 data = date.today().strftime('%d/%m/%Y')
 plt.title(f'Variação da Temperatura em São Paulo {data}')
 plt.xlabel('Hora do Dia')
