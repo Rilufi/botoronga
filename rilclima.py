@@ -18,6 +18,7 @@ from datetime import date
 from scipy.signal import savgol_filter
 
 
+# Abrindo o Chrome pro Actions
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
 chrome_options = Options()
@@ -73,7 +74,8 @@ df['Temperature'] = (df['Temperature'] - 32) * 5/9
 df['Temperature'] = df['Temperature'].round(2)
 
 # Agrupa os dados por hora e calcula a média
-df_avg = df.groupby('Time')['Temperature'].mean().reset_index()
+df['Hour'] = pd.to_datetime(df['Time']).dt.hour
+df_avg = df.groupby('Hour')['Temperature'].mean().reset_index()
 
 # Suavização dos dados usando o filtro de Savitzky-Golay
 window_size = 7
@@ -81,33 +83,23 @@ poly_order = 3
 df_avg['Temperature_smooth'] = savgol_filter(df_avg['Temperature'], window_size, poly_order)
 
 # Cria um gráfico de linha suavizado
-plt.plot(df_avg['Time'], df_avg['Temperature_smooth'], marker='o', label='Suavizado')
+plt.plot(df_avg['Hour'], df_avg['Temperature_smooth'], marker='o', label='Suavizado')
+#plt.scatter(df['Hour'], df['Temperature'], color='red', label='Original', marker='x')
 data = date.today().strftime('%d/%m/%Y')
 plt.title(f'Variação da Temperatura em São Paulo {data}')
 plt.xlabel('Hora do Dia')
-plt.ylabel('Temperatura (°C)')
+plt.ylabel('Temperatura Média (°C)')
 plt.grid(True)
-plt.xticks(rotation=45)
+plt.xticks(range(df['Hour'].min(), df['Hour'].max() + 1))  # Define as legendas para cada hora do dia com base nos dados
 plt.tight_layout()
-
-# Cria um gráfico de linha
-#data = date.today().strftime('%d/%m/%Y')
-#plt.plot(df['Time'], df['Temperature'], marker='o')
-#plt.title(f'Variação da Temperatura em São Paulo {data}')
-#plt.xlabel('Hora do Dia')
-#plt.ylabel('Temperatura (°C)')
-#plt.grid(True)
-#plt.xticks(rotation=45)
-#plt.tight_layout()
 
 # Mostra o gráfico
 plt.savefig("temp_sp",dpi = 300, bbox_inches='tight')
-#plt.show()
 
 # Fecha o navegador
 driver.quit()
 
-print("Dados salvos com sucesso em 'clima_sp_data.csv' e gráfico gerado.")
+print("Gráfico gerado com sucesso")
 
 
 # Coordenadas geográficas de São Paulo
@@ -137,4 +129,5 @@ try:
     media = api.media_upload("temp_sp.png")
     client.create_tweet(text=temp_now, media_ids=[media.media_id])
 except:
+    print('Deu ruim o twitter')
     pass
