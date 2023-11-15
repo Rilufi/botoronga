@@ -87,7 +87,7 @@ plt.ylabel('Temperatura (°C)')
 plt.grid(True)
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.legend()
+#plt.legend()
 
 
 # Cria um gráfico de linha
