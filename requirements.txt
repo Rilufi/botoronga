@@ -5,4 +5,4 @@ webdriver_manager
 matplotlib
 pandas
 lxml
-scipy
+numpy
