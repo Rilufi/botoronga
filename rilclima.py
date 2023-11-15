@@ -15,7 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import date
-from scipy.interpolate import interp1d
+import numpy as np
 
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
@@ -74,16 +74,12 @@ df['Temperature'] = df['Temperature'].round(2)
 # Salva os dados em um arquivo CSV
 df.to_csv('clima_sp_data.csv', index=False)
 
-# Interpolação para suavizar o gráfico
-interp_func = interp1d(df.index, df['Temperature'], kind='cubic')
-index_smooth = pd.RangeIndex(start=df.index.min(), stop=df.index.max(), step=0.1)
-df_smooth = pd.DataFrame({'Temperature': interp_func(index_smooth)}, index=index_smooth)
-
+Suavização dos dados
+smoothed_temperature = np.convolve(df['Temperature'], np.ones(10)/10, mode='valid')
 
 # Cria um gráfico de linha suavizado
-plt.plot(df_smooth.index, df_smooth['Temperature'], marker='o', label='Suavizado')
-plt.scatter(df.index, df['Temperature'], color='red', label='Original', marker='x')
-#plt.title('Variação da Temperatura em São Paulo (2023-11-14)')
+plt.plot(df['Time'][:len(smoothed_temperature)], smoothed_temperature, marker='o', label='Suavizado')
+plt.scatter(df['Time'], df['Temperature'], color='red', label='Original', marker='x'
 plt.xlabel('Hora do Dia')
 plt.ylabel('Temperatura (°C)')
 plt.grid(True)
