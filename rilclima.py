@@ -79,7 +79,7 @@ smoothed_temperature = np.convolve(df['Temperature'], np.ones(10)/10, mode='vali
 
 # Cria um gráfico de linha suavizado
 plt.plot(df['Time'][:len(smoothed_temperature)], smoothed_temperature, marker='o', label='Suavizado')
-plt.scatter(df['Time'], df['Temperature'], color='red', label='Original', marker='x'
+plt.scatter(df['Time'], df['Temperature'], color='red', label='Original', marker='x')
 plt.xlabel('Hora do Dia')
 plt.ylabel('Temperatura (°C)')
 plt.grid(True)
