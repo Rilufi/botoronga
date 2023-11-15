@@ -74,7 +74,7 @@ df['Temperature'] = df['Temperature'].round(2)
 # Salva os dados em um arquivo CSV
 df.to_csv('clima_sp_data.csv', index=False)
 
-Suavização dos dados
+# Suavização dos dados
 smoothed_temperature = np.convolve(df['Temperature'], np.ones(10)/10, mode='valid')
 
 # Cria um gráfico de linha suavizado
