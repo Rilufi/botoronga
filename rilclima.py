@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 from datetime import date
 from scipy.signal import savgol_filter
 
+
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
 chrome_options = Options()
@@ -71,14 +72,13 @@ df['Temperature'] = (df['Temperature'] - 32) * 5/9
 # Arredonda as temperaturas para no máximo duas casas decimais
 df['Temperature'] = df['Temperature'].round(2)
 
-# Salva os dados em um arquivo CSV
-df.to_csv('clima_sp_data.csv', index=False)
-
+# Agrupa os dados por hora e calcula a média
+df_avg = df.groupby('Time')['Temperature'].mean().reset_index()
 
 # Suavização dos dados usando o filtro de Savitzky-Golay
 window_size = 7
 poly_order = 3
-df['Temperature_smooth'] = savgol_filter(df['Temperature'], window_size, poly_order)
+df_avg['Temperature_smooth'] = savgol_filter(df_avg['Temperature'], window_size, poly_order)
 
 # Cria um gráfico de linha suavizado
 plt.plot(df['Time'], df['Temperature_smooth'], marker='o', label='Suavizado')
