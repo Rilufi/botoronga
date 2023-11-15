@@ -15,7 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import date
-import numpy as np
+from scipy.signal import savgol_filter
 
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
@@ -74,21 +74,21 @@ df['Temperature'] = df['Temperature'].round(2)
 # Salva os dados em um arquivo CSV
 df.to_csv('clima_sp_data.csv', index=False)
 
-# Suavização dos dados
-smoothed_temperature = np.convolve(df['Temperature'], np.ones(10)/10, mode='valid')
+
+# Suavização dos dados usando o filtro de Savitzky-Golay
+window_size = 7
+poly_order = 3
+df['Temperature_smooth'] = savgol_filter(df['Temperature'], window_size, poly_order)
 
 # Cria um gráfico de linha suavizado
+plt.plot(df['Time'], df['Temperature_smooth'], marker='o', label='Suavizado')
 data = date.today().strftime('%d/%m/%Y')
 plt.title(f'Variação da Temperatura em São Paulo {data}')
-plt.plot(df['Time'][:len(smoothed_temperature)], smoothed_temperature, marker='o', label='Suavizado')
-#plt.scatter(df['Time'], df['Temperature'], color='red', label='Original', marker='x')
 plt.xlabel('Hora do Dia')
 plt.ylabel('Temperatura (°C)')
 plt.grid(True)
 plt.xticks(rotation=45)
 plt.tight_layout()
-#plt.legend()
-
 
 # Cria um gráfico de linha
 #data = date.today().strftime('%d/%m/%Y')
