@@ -1,11 +1,11 @@
 name: Rilclima
 
 
-on:
+on: push
 
-    schedule:
+ #   schedule:
 
-        - cron: '0 * * * *'
+  #      - cron: '0 * * * *'
 
 
 jobs:
