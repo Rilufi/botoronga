@@ -14,7 +14,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import matplotlib.pyplot as plt
-from datetime import date
+from datetime import datetime
+import pytz
 from scipy.signal import savgol_filter
 
 
@@ -82,10 +83,22 @@ window_size = 7
 poly_order = 3
 df_avg['Temperature_smooth'] = savgol_filter(df_avg['Temperature'], window_size, poly_order)
 
+# Define o fuso horário do Brasil
+fuso_brasil = pytz.timezone('America/Sao_Paulo')
+
+# Obtém a data e hora atual nos EUA
+data_eua = datetime.now()
+
+# Ajusta para o fuso horário do Brasil
+data_brasil = data_eua.astimezone(fuso_brasil)
+
+# Formata a data no formato dd/mm/yyyy
+data = data_brasil.strftime('%d/%m/%Y')
+
+print("Data atual no Brasil:", data_formatada)
+
 # Cria um gráfico de linha suavizado
 plt.plot(df_avg['Hour'], df_avg['Temperature_smooth'], marker='o', label='Suavizado')
-#plt.scatter(df['Hour'], df['Temperature'], color='red', label='Original', marker='x')
-data = date.today().strftime('%d/%m/%Y')
 plt.title(f'Variação da Temperatura em São Paulo {data}')
 plt.xlabel('Hora do Dia')
 plt.ylabel('Temperatura Média (°C)')
