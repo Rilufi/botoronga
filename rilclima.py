@@ -79,7 +79,7 @@ df['Hour'] = pd.to_datetime(df['Time']).dt.hour
 df_avg = df.groupby('Hour')['Temperature'].mean().reset_index()
 
 # Suavização dos dados usando o filtro de Savitzky-Golay
-window_size = 7
+window_size = min(7, len(df_avg['Temperature']))  # Garante que o window_size não ultrapasse o número de pontos de dados
 poly_order = 3
 df_avg['Temperature_smooth'] = savgol_filter(df_avg['Temperature'], window_size, poly_order)
 
