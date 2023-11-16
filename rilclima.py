@@ -95,8 +95,6 @@ data_brasil = data_eua.astimezone(fuso_brasil)
 # Formata a data no formato dd/mm/yyyy
 data = data_brasil.strftime('%d/%m/%Y')
 
-print("Data atual no Brasil:", data_formatada)
-
 # Cria um gráfico de linha suavizado
 plt.plot(df_avg['Hour'], df_avg['Temperature_smooth'], marker='o', label='Suavizado')
 plt.title(f'Variação da Temperatura em São Paulo {data}')
