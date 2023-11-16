@@ -6,3 +6,4 @@ matplotlib
 pandas
 lxml
 scipy
+pytz
