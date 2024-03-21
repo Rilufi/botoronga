@@ -37,7 +37,10 @@ if __name__ == "__main__":
         reddit_link = f"https://www.reddit.com{trending_topic.permalink}"
 
         # Posta o tópico no Twitter
-        tweet = f"Tópico em alta do momento no Reddit: {trending_topic.title}. Leia mais em: {reddit_link}"
+        tweet = f"""Tópico em alta do momento no Reddit: 
+        {trending_topic.title} 
+        
+        Leia mais em: {reddit_link}"""
         print(tweet)
         client.create_tweet(text=tweet)
         print("Tópico postado no Twitter com sucesso!")
