@@ -1,4 +1,4 @@
-# Botoronga - A nova Incarnação
+# Botoronga
 
 Este repositório contém dois scripts em execução no GitHub Actions para fornecer informações sobre o clima de São Paulo e os tópicos em alta do Reddit, postando ambas informações de hora em hora no Twitter.
 
