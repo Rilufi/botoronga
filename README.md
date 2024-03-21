@@ -1,19 +1,19 @@
-# coronga2.0
-Bot em Python para postar informações sobre o COVID-19 no Twitter 
+# Botoronga - A nova Incarnação
 
-Essa daqui é uma nova versão do https://github.com/Rilufi/coronga , todas as informações adicionais se encontram lá, então vou citar somente as diferenças principais.
+Este repositório contém dois scripts em execução no GitHub Actions para fornecer informações sobre o clima de São Paulo e os tópicos em alta do Reddit.
 
-## dados COVID
-Todos os dados sobre o COVID-19 estão sendo retirados da planilha atualizada diariamente de https://covid.ourworldindata.org sem necessidade de pacotes de terceiros.
+## rilclima.py
 
-## Por que outro repositório praticamente igual???
-Não, eu não estou querendo só encher linguiça no github, é que além da outra fonte de dados que eu usava não funcionar mais, eu adicionei essa resposta com mais info e que não dependa de pacotes extras pra rodar, só pega diretamente os dados de uma planilha csv pelo pandas.
+Este script é responsável por obter dados de temperatura históricos e atuais de São Paulo. Ele utiliza Selenium e pandas para extrair dados de temperatura de um site meteorológico e OpenWeatherMap API para obter a temperatura atual. Em seguida, ele gera um gráfico da variação da temperatura ao longo do dia e posta a temperatura atual no Twitter.
 
-## Gráficos
-Agora também temos gráficos! O script que faz os gráficos é o covidson.py, coloquei um workflow agendado pra rodar todo dia e já autocomitar os gráficos atualizados no repositório, esse workflow já ativa o próximo que roda o script botoronga.py que pega os gráficos pra postar junto dos dados diretos, tudo em sequência usando o último tweet como base.
+## bototrend.py
 
-## Onde está o bot?
-Só entrar aqui pra encontrar o resultado: [Botoronga](https://twitter.com/botoronga)
+Este script obtém o tópico em alta do Reddit e o publica no Twitter. Ele utiliza a API do Reddit (PRAW) para acessar os tópicos em alta de subreddits aleatórios e escolhe um tópico para postar no Twitter.
 
-## Atualização 05/05/23
-Já que a OMS declarou o fim da pandemia, a função de postar informações sobre COVID deste bot no momento está pausada. No entanto, continuamos funcionando jogando Tetris com os outros dois bots, a partir de um código contido no repositório [Tetris](https://github.com/Rilufi/twitris).
+Ambos os scripts são executados regularmente no GitHub Actions para manter as informações atualizadas no perfil do Twitter associado.
+
+### Onde posso encontrar?
+Pode ser encontrado em [Botoronga](https://twitter.com/botoronga)
+
+---
+**Nota:** Os detalhes de autenticação e configuração dos scripts foram omitidos por motivos de segurança. Certifique-se de configurar corretamente as credenciais e tokens de acesso no script auth.py ou pelo Github Secrets antes de executar os scripts.
