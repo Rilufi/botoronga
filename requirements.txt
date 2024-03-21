@@ -7,3 +7,4 @@ pandas
 lxml
 scipy
 pytz
+praw
