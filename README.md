@@ -1,6 +1,6 @@
 # Botoronga - A nova Incarnação
 
-Este repositório contém dois scripts em execução no GitHub Actions para fornecer informações sobre o clima de São Paulo e os tópicos em alta do Reddit.
+Este repositório contém dois scripts em execução no GitHub Actions para fornecer informações sobre o clima de São Paulo e os tópicos em alta do Reddit, postando ambas informações de hora em hora no Twitter.
 
 ## rilclima.py
 
@@ -13,7 +13,7 @@ Este script obtém o tópico em alta do Reddit e o publica no Twitter. Ele utili
 Ambos os scripts são executados regularmente no GitHub Actions para manter as informações atualizadas no perfil do Twitter associado.
 
 ### Onde posso encontrar?
-Pode ser encontrado em [Botoronga](https://twitter.com/botoronga)
+Pode ser encontrado em [Botoronga](https://twitter.com/botoronga).
 
 ---
 **Nota:** Os detalhes de autenticação e configuração dos scripts foram omitidos por motivos de segurança. Certifique-se de configurar corretamente as credenciais e tokens de acesso no script auth.py ou pelo Github Secrets antes de executar os scripts.
