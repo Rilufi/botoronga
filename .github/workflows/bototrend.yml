@@ -1,11 +1,11 @@
-name: Rilclima
+name: Trendbot
 
 
-on: push
+on:
 
-  #  schedule:
+    schedule:
 
-   #     - cron: '30 * * * *'
+        - cron: '30 * * * *'
 
 
 jobs:
