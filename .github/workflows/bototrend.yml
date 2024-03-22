@@ -1,11 +1,11 @@
 name: Trendbot
 
 
-on:
+on: push
 
-    schedule:
+   # schedule:
 
-        - cron: '30 * * * *'
+      #  - cron: '30 * * * *'
 
 
 jobs:
