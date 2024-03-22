@@ -2,8 +2,13 @@ import requests
 from auth import API_KEY, client, api
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
+#from webdriver_manager.core.utils import ChromeType
+from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.keys import Keys
+from time import sleep, time
+from datetime import datetime
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,8 +18,9 @@ from datetime import datetime
 import pytz
 from scipy.signal import savgol_filter
 
-# Abrindo o Chrome para Actions
-chrome_service = Service(ChromeDriverManager().install())
+
+# Abrindo o Chrome pro Actions
+chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
 chrome_options = Options()
 options = [
