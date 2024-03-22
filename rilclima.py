@@ -2,13 +2,8 @@ import requests
 from auth import API_KEY, client, api
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-#from webdriver_manager.core.utils import ChromeType
-from webdriver_manager.core.os_manager import ChromeType
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.keys import Keys
-from time import sleep, time
-from datetime import datetime
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -18,9 +13,8 @@ from datetime import datetime
 import pytz
 from scipy.signal import savgol_filter
 
-
-# Abrindo o Chrome pro Actions
-chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+# Abrindo o Chrome para Actions
+chrome_service = Service(ChromeDriverManager().install())
 
 chrome_options = Options()
 options = [
@@ -78,10 +72,15 @@ df['Temperature'] = df['Temperature'].round(2)
 df['Hour'] = pd.to_datetime(df['Time']).dt.hour
 df_avg = df.groupby('Hour')['Temperature'].mean().reset_index()
 
-# Suavização dos dados usando o filtro de Savitzky-Golay
-window_size = min(7, len(df_avg['Temperature']))  # Garante que o window_size não ultrapasse o número de pontos de dados
-poly_order = 3
-df_avg['Temperature_smooth'] = savgol_filter(df_avg['Temperature'], window_size, poly_order)
+# Verifica se há pontos de dados suficientes para aplicar o filtro de Savitzky-Golay
+if len(df_avg) >= 7:
+    # Suavização dos dados usando o filtro de Savitzky-Golay
+    window_size = 7
+    poly_order = 3
+    df_avg['Temperature_smooth'] = savgol_filter(df_avg['Temperature'], window_size, poly_order)
+else:
+    # Se não houver pontos suficientes, use os dados brutos
+    df_avg['Temperature_smooth'] = df_avg['Temperature']
 
 # Define o fuso horário do Brasil
 fuso_brasil = pytz.timezone('America/Sao_Paulo')
