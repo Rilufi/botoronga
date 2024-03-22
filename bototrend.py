@@ -3,6 +3,7 @@ import tweepy
 import random
 from auth import client
 import os
+import re
 
 
 def extract_hashtags_from_text(text):
@@ -21,8 +22,7 @@ def get_reddit_trending_topic():
         reddit = praw.Reddit(
             client_id = os.environ.get("CLIENT_ID"),
             client_secret = os.environ.get("CLIENT_SECRET"),
-            user_agent="GatobotScript"
-        )
+            user_agent="GatobotScript")
       
         # Escolha um subreddit aleatório
         subreddit = reddit.random_subreddit()
