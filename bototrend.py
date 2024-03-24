@@ -69,7 +69,7 @@ if __name__ == "__main__":
         reddit_link = f"https://www.reddit.com{trending_topic.permalink}"
 
         # Posta o tópico no Twitter
-        tweet = f"""Tópico em alta do momento no Reddit:
+        tweet = f"""Tópico em alta do momento no #Reddit
 
 {trending_topic.title}
 
