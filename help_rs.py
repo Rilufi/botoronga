@@ -18,8 +18,8 @@ tweets_e_imagens = {
         'tweets': [
             "Os times gaúchos estão unidos pelas vítimas das chuvas. Doe via Pix para o Grêmio (CNPJ: 129859670001-59). Internacional e Juventude recebem doações físicas. #SOSRioGrandeDoSul",
             "Ajude o RS com o Grêmio pelo Pix (CNPJ: 129859670001-59). Internacional e Juventude coletam itens essenciais. #SOSRioGrandeDoSul",
-            "Solidariedade em campo! Grêmio, Internacional e Juventude mobilizados para ajudar o RS. Veja como doar. #SOSRioGrandeDoSul",
-            "Faça parte da torcida pelo RS! Contribua com o Grêmio via Pix ou doe itens no Internacional e Juventude. #SOSRioGrandeDoSul",
+            "Solidariedade em campo! Grêmio, Internacional e Juventude mobilizados para ajudar o RS. Doe via Pix (CNPJ: 129859670001-59). #SOSRioGrandeDoSul",
+            "Faça parte da torcida pelo RS! Contribua com o Grêmio via Pix (CNPJ: 129859670001-59) ou doe itens no Internacional e Juventude. #SOSRioGrandeDoSul",
             "Vista a camisa da ajuda! Doe para o Grêmio via Pix (CNPJ: 129859670001-59) ou traga doações ao Internacional e Juventude. #SOSRioGrandeDoSul"
         ],
         'imagem': 'imagem_texto2.png'
@@ -35,7 +35,7 @@ tweets_e_imagens = {
     'Texto4': {
         'tweets': [
             "O Hemocentro de Porto Alegre alerta para a necessidade urgente de doações de sangue. Agende pelo tel (51) 3339-7330 ou WhatsApp (51) 98405-4260. #SOSRioGrandeDoSul",
-            "Ajude a manter o estoque de sangue! O Hemocentro de Porto Alegre está aberto para doações. Mais informações: (51) 3339-7330. #SOSRioGrandeDoSul",
+            "Ajude a manter o estoque de sangue! O Hemocentro de Porto Alegre está aberto para doações. Mais informações: (51) 3339-7330 ou WhatsApp (51) 98405-4260. #SOSRioGrandeDoSul",
             "Doar sangue salva vidas! Em Porto Alegre, ligue para (51) 3339-7330 ou envie uma mensagem para (51) 98405-4260 e agende sua doação. #SOSRioGrandeDoSul",
             "Porto Alegre precisa de doadores de sangue. Contate o Hemocentro: (51) 3339-7330 ou (51) 98405-4260. Sua ação pode salvar vidas. #SOSRioGrandeDoSul",
             "Seja um herói do cotidiano. Doe sangue no Hemocentro de Porto Alegre. Agendamentos: (51) 3339-7330 / (51) 98405-4260. #SOSRioGrandeDoSul"
