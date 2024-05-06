@@ -1,11 +1,11 @@
-name: Trendbot
+name: Help RS
 
 
-on:
+on: push
 
-    schedule:
+  #  schedule:
 
-        - cron: '30 * * * *'
+  #      - cron: '30 * * * *'
 
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
           pip install -r requirements.txt
 
       # Use HEREDOC for `run` to escape possible single and double quotes in the message.
-      - name: trend now 📈
+      - name: help RS #trend now 📈
         env:
                   CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
 
@@ -59,4 +59,4 @@ jobs:
                   CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
                   
                   
-        run: python bototrend.py
+        run: python help_rs.py
