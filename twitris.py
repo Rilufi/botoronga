@@ -20,9 +20,11 @@ class Block:
         self.position = [0, self.get_center_x()]
 
     def get_color_by_shape(self):
-        # Convert shape to a hashable tuple for dictionary lookup
-        shape_tuple = tuple(tuple(row) for row in self.shape.tolist())
-        return getattr(Color, shape_tuple, (255, 255, 255))  # Default to white if color not found
+        shape_array = self.shape.tolist()  # Convert shape to nested list
+        for color_name, color_tuple in Color.__dict__.items():
+            if isinstance(color_tuple, tuple) and color_tuple in shape_array:
+                return color_tuple
+        return (255, 255, 255)  # Default to white if color not found
 
     def get_center_x(self):
         return self.shape.shape[1] // 2
