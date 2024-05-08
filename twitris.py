@@ -11,6 +11,7 @@ class Color:
     T = (128, 0, 128)    # Purple
     J = (0, 0, 255)      # Blue
     L = (255, 128, 0)    # Orange
+    Blank = (255, 255, 255)  # White (for blank space)
 
 class Block:
     def __init__(self, shape):
@@ -24,7 +25,7 @@ class Block:
         for color_name, color_tuple in Color.__dict__.items():
             if isinstance(color_tuple, tuple) and color_tuple in shape_array:
                 return color_tuple
-        return (255, 255, 255)  # Default to white if color not found
+        return Color.Blank  # Default to white if color not found
 
     def get_center_x(self):
         return self.shape.shape[1] // 2
@@ -56,18 +57,14 @@ class Game:
         return Block(shape)
 
     def draw(self, filename):
-        board_with_block = [row[:] for row in self.board]
-        positions = self.current_block.translate()
-        for x, y, color in positions:
-            if 0 <= x < self.height and 0 <= y < self.width:
-                board_with_block[x][y] = color
-
         image = Image.new('RGB', (self.width * 20, self.height * 20), color='white')
         draw = ImageDraw.Draw(image)
+
         for y in range(self.height):
             for x in range(self.width):
-                color = board_with_block[y][x]
-                draw.rectangle([x * 20, y * 20, (x + 1) * 20, (y + 1) * 20], fill=color, outline='black')
+                color = self.board[y][x]
+                if color != ' ':
+                    draw.rectangle([x * 20, y * 20, (x + 1) * 20, (y + 1) * 20], fill=color, outline='black')
 
         image.save(filename)
         print("Imagem do tabuleiro salva com sucesso.")
