@@ -34,6 +34,7 @@ class Block:
     return [(pos[0], pos[1], self.color) for pos in np.argwhere(rotations[self.rotation % 4]) + self.position]
 
 
+
 class Game:
   def __init__(self, width=10, height=18):
     self.width = width
