@@ -2,11 +2,10 @@ name: Help RS
 
 
 on:
-
-    schedule:
-
-        - cron: '30 * * * *'
-
+  workflow_run:
+    workflows: ["Rilclima"]
+    types:
+      - completed
 
 jobs:
   tweet:
