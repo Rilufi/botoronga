@@ -71,10 +71,10 @@ class Game:
     self.blocks = []
     self.twitter = Twitter()
     self.score = 0
-    self.font = pygame.font.SysFont(None, 32)
+    self.font = pygame.font.SysFont(None, 32)  # Initialize font here
 
   def start(self):
-    self.board = np.zeros((self.height, self.width), dtype=str)
+    self.board = np.zeros((self.height, width), dtype=str)
     self.blocks = []
     self.score = 0
     self.generate_board()
@@ -98,7 +98,7 @@ class Game:
       self.blocks.append(block)
 
   def tweet_game_state(self):
-    surface = pygame.Surface((self.width * 25, self.height * 25))
+    surface = pygame.display.set_mode((self.width * 25, self.height * 25))  # Create a visible window
     surface.fill((0, 0, 0))
     grid = self.board * 25
     pygame.draw.rect(surface, (255, 255, 255), (0, 0, self.width * 25, self.height * 25), 1)
@@ -108,6 +108,7 @@ class Game:
           pygame.draw.rect(surface, (0, 255, 0), (x * 25, y * 25, 25, 25))
     text = self.font.render(f"Score: {self.score}", True, (255, 255, 255))
     surface.blit(text, (10, 10))
+    pygame.display.flip()  # Update the display
     pygame.image.save(f"tetris_board_{time.time()}.png", surface)  # Generate unique filename
     self.twitter.tweet_image(f"tetris_board_{time.time()}.png", "Current Tetris Board!")  # Tweet with image
     os.remove(f"tetris_board_{time.time()}.png")  # Clean up temporary image
@@ -141,7 +142,6 @@ class Game:
 
   def run(self):
     pygame.init()
-    pygame.display.set_mode((1, 1))  # Hidden window for font rendering
     self.start()
 
     while True:
@@ -149,6 +149,7 @@ class Game:
       if move:
         self.move_block(move)
         self.tweet_game_state()
+      pygame.display.flip()  # Update the display for every loop
       time.sleep(5)  # Check for replies every 5 seconds
 
 if __name__ == "__main__":
