@@ -16,9 +16,6 @@ jobs:
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v2
-        
-      - name: Keep this repo alive
-        uses: gautamkrishnar/keepalive-workflow@master
 
       - name: Set up Python 🐍
         uses: actions/setup-python@v2
@@ -34,16 +31,13 @@ jobs:
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
 
-      - name: Remove Chrome
-        run: sudo apt purge google-chrome-stable
-
       - name: Install packages ⚙
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install tweepy
 
       # Use HEREDOC for `run` to escape possible single and double quotes in the message.
-      - name: help RS #trend now 📈
+      - name: help RS
         env:
                   CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
 
@@ -51,11 +45,6 @@ jobs:
 
                   ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-                  ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
-                  
-                  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+                  ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}                 
 
-                  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-                  
-                  
         run: python help_rs.py
