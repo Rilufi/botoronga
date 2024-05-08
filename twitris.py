@@ -50,7 +50,7 @@ def main():
     game = Game()
 
     # Gerar e salvar a imagem estática do tabuleiro
-    game.draw('tetris_board.png')
+    game.draw('imagens/tetris_board.png')
     print("Imagem do tabuleiro salva com sucesso.")
 
 if __name__ == "__main__":
