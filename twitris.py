@@ -20,13 +20,9 @@ class Block:
     self.position = [0, self.get_center_x()]
 
   def get_color_by_shape(self):
-    # Map shape to corresponding color
-    colors = {
-      tuple(row.tolist() for row in self.shape): color
-      for color, shape in Color.__dict__.items()
-      if isinstance(shape, tuple)
-    }
-    return colors[tuple(row.tolist() for row in self.shape)]
+    # Convert shape to a hashable tuple for dictionary lookup
+    shape_tuple = tuple(row.tolist() for row in self.shape)
+    return Color.__dict__.get(shape_tuple)  # Use get to handle missing keys
 
   def get_center_x(self):
     return self.shape.shape[1] // 2
@@ -36,6 +32,7 @@ class Block:
     for i in range(1, 4):
       rotations[i] = np.rot90(rotations[i-1])
     return [(pos[0], pos[1], self.color) for pos in np.argwhere(rotations[self.rotation % 4]) + self.position]
+
 
 class Game:
   def __init__(self, width=10, height=18):
