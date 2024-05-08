@@ -12,7 +12,7 @@ tweets_e_imagens = {
             "Seu apoio é vital para o RS. Doações via Pix para SOS Rio Grande do Sul (CNPJ: 92.958.800/0001-38) ajudam diretamente quem precisa. #SOSRioGrandeDoSul + informações em https://help-rs.vercel.app/",
             "Solidariedade com o RS. Use o Pix (CNPJ: 92.958.800/0001-38) para doar para a conta SOS Rio Grande do Sul. Transparência garantida. #SOSRioGrandeDoSul + informações em https://help-rs.vercel.app/"
         ],
-        'imagem': 'imagem_texto1.png'
+        'imagem': 'imagens/imagem_texto1.png'
     },
     'Texto2': {
         'tweets': [
@@ -22,7 +22,7 @@ tweets_e_imagens = {
             "Faça parte da torcida pelo RS! Contribua com o Grêmio via Pix (CNPJ: 129859670001-59) ou doe itens no Internacional e Juventude. #SOSRioGrandeDoSul + informações em https://help-rs.vercel.app/",
             "Vista a camisa da ajuda! Doe para o Grêmio via Pix (CNPJ: 129859670001-59) ou traga doações ao Internacional e Juventude. #SOSRioGrandeDoSul + informações em https://help-rs.vercel.app/"
         ],
-        'imagem': 'imagem_texto2.png'
+        'imagem': 'imagens/imagem_texto2.png'
     },
     'Texto3': {
         'tweets': [
@@ -30,7 +30,7 @@ tweets_e_imagens = {
             "Santa Cruz do Sul busca voluntários para ajudar após enchentes. Inscreva-se no site da prefeitura. #SOSRioGrandeDoSul + informações em https://help-rs.vercel.app/",
             "Taquara precisa de doações! Entregue na Secretaria de Desenvolvimento ou doe via Pix: 51996654645. #SOSRioGrandeDoSul + informações em https://help-rs.vercel.app/"
         ],
-        'imagem': 'imagem_texto3.png'
+        'imagem': 'imagens/imagem_texto3.png'
     },
     'Texto4': {
         'tweets': [
@@ -40,7 +40,7 @@ tweets_e_imagens = {
             "Porto Alegre precisa de doadores de sangue. Contate o Hemocentro: (51) 3339-7330 ou (51) 98405-4260. Sua ação pode salvar vidas. #SOSRioGrandeDoSul + informações em https://help-rs.vercel.app/",
             "Seja um herói do cotidiano. Doe sangue no Hemocentro de Porto Alegre. Agendamentos: (51) 3339-7330 / (51) 98405-4260. #SOSRioGrandeDoSul + informações em https://help-rs.vercel.app/"
         ],
-        'imagem': 'imagem_texto4.png'
+        'imagem': 'imagens/imagem_texto4.png'
     },
     'Texto5': {
         'tweets': [
@@ -50,7 +50,7 @@ tweets_e_imagens = {
             "Ajude as vítimas das chuvas em Porto Alegre. Doações são recebidas na Amrigs, shoppings e estádios. Veja onde contribuir. #SOSRioGrandeDoSul + informações em https://help-rs.vercel.app/",
             "Defesa Civil de Porto Alegre convoca para doação de itens urgentes. Encontre o ponto de coleta mais próximo e ajude! #SOSRioGrandeDoSul + informações em https://help-rs.vercel.app/"
         ],
-        'imagem': 'imagem_texto5.png'
+        'imagem': 'imagens/imagem_texto5.png'
     }
 }
 
