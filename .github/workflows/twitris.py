@@ -1,0 +1,57 @@
+name: Twitris
+
+
+on: push
+
+ #   schedule:
+
+#        - cron: '0 * * * *'
+
+
+jobs:
+  tweet:
+    name: Tweet
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v2
+        
+      - name: Keep this repo alive
+        uses: gautamkrishnar/keepalive-workflow@master
+
+      - name: Set up Python 🐍
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Cache Python packages 💾
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+
+      - name: Remove Chrome
+        run: sudo apt purge google-chrome-stable
+
+      - name: Install packages ⚙
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Use HEREDOC for `run` to escape possible single and double quotes in the message.
+      - name: tetris 🧱
+        env:
+                  CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+
+                  CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+
+                  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+                  ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+                  
+        run: python twitris.py
