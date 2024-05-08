@@ -1,23 +1,16 @@
 name: Twitris
 
-
-on: #push
-
- #   schedule:
-
-#        - cron: '0 * * * *'
-
+on: push
 
 jobs:
   tweet:
     name: Tweet
-    
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v2
-        
+
       - name: Keep this repo alive
         uses: gautamkrishnar/keepalive-workflow@master
 
@@ -35,23 +28,20 @@ jobs:
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
 
-      - name: Remove Chrome
-        run: sudo apt purge google-chrome-stable
-
       - name: Install packages ⚙
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install numpy pillow
 
-      # Use HEREDOC for `run` to escape possible single and double quotes in the message.
-      - name: tetris 🧱
-        env:
-                  CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+      # Executar o script Python para gerar a imagem do tabuleiro do Tetris
+      - name: Generate Tetris Board Image 🎮
+        run: python twitris.py  # Substitua pelo caminho real do seu script
 
-                  CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
-
-                  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-
-                  ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
-                  
-        run: python twitris.py
+      # Commit e push das alterações (imagem do tabuleiro)
+      - name: Commit and Push Image
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add path/to/your/image.jpg  # Substitua pelo caminho da imagem gerada
+          git commit -m "Update Tetris Board Image" || echo "No changes to commit"
+          git push
