@@ -42,6 +42,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add path/to/your/image.jpg  # Substitua pelo caminho da imagem gerada
+          git add imagens/tetris_board.png  # Substitua pelo caminho da imagem gerada
           git commit -m "Update Tetris Board Image" || echo "No changes to commit"
           git push
