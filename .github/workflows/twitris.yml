@@ -11,9 +11,6 @@ jobs:
       - name: Checkout 🛎
         uses: actions/checkout@v2
 
-      - name: Keep this repo alive
-        uses: gautamkrishnar/keepalive-workflow@master
-
       - name: Set up Python 🐍
         uses: actions/setup-python@v2
         with:
