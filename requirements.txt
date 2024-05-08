@@ -7,6 +7,3 @@ pandas
 lxml
 scipy
 pytz
-praw
-numpy
-pygame
