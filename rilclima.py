@@ -1,6 +1,5 @@
 import requests
 from selenium import webdriver
-from auth import API_KEY, username, password
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.options import Options
@@ -18,6 +17,10 @@ from scipy.signal import savgol_filter
 import yaml
 import traceback
 from selenium.common.exceptions import TimeoutException
+
+API_KEY = os.environ.get("API_KEY")
+username = os.environ.get("USERNAME")
+password = os.environ.get("PASSWORD")
 
 # Função de login
 def login(S, _username, _password):
