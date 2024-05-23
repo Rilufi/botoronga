@@ -1,7 +1,7 @@
 name: Rilclima
 
 
-on: push
+on:
 
 #    schedule:
 
@@ -46,14 +46,11 @@ jobs:
       # Use HEREDOC for `run` to escape possible single and double quotes in the message.
       - name: weather now 🌤️
         env:
-                  CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
-
-                  CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
 
                   API_KEY: ${{ secrets.API_KEY }}
 
-                  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+                  USERNAME: ${{ secrets.USERNAME }}
 
-                  ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+                  PASSWORD: ${{ secrets.PASSWORD }}
                   
         run: python rilclima.py
