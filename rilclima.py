@@ -2,7 +2,6 @@ import requests
 from auth import API_KEY, client, api
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-#from webdriver_manager.core.utils import ChromeType
 from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -17,7 +16,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import pytz
 from scipy.signal import savgol_filter
-
+from io import StringIO
 
 # Abrindo o Chrome pro Actions
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
@@ -47,7 +46,8 @@ df = pd.DataFrame(columns=['Time', 'Temperature'])
 
 for table in tables:
     # Lê a tabela HTML usando pandas
-    new_table = pd.read_html(table.get_attribute('outerHTML'))
+    html = table.get_attribute('outerHTML')
+    new_table = pd.read_html(StringIO(html))
 
     if new_table:
         # Algumas tabelas podem ter colunas adicionais ou informações extras
@@ -57,13 +57,13 @@ for table in tables:
             df = pd.concat([df, new_table[0][['Time', 'Temperature']].fillna('')], ignore_index=True)
 
 # Lida com valores nulos na coluna 'Time' e substitui por uma string vazia
-df['Time'].fillna('', inplace=True)
+df['Time'] = df['Time'].fillna('')
 
 # Converte o formato AM/PM para 24 horas, tratando os valores vazios
 df['Time'] = pd.to_datetime(df['Time'], format='%I:%M %p', errors='coerce').dt.strftime('%H:%M')
 
 # Extrai apenas os números da temperatura, tratando os valores vazios
-df['Temperature'] = df['Temperature'].str.extract('(\d+)', expand=False).astype(float)
+df['Temperature'] = df['Temperature'].str.extract(r'(\d+)', expand=False).astype(float)
 
 # Remove as linhas com valores nulos resultantes da conversão
 df.dropna(subset=['Time'], inplace=True)
@@ -75,7 +75,7 @@ df['Temperature'] = (df['Temperature'] - 32) * 5/9
 df['Temperature'] = df['Temperature'].round(2)
 
 # Agrupa os dados por hora e calcula a média
-df['Hour'] = pd.to_datetime(df['Time']).dt.hour
+df['Hour'] = pd.to_datetime(df['Time'], format='%H:%M').dt.hour
 df_avg = df.groupby('Hour')['Temperature'].mean().reset_index()
 
 # Verifica se há pontos de dados suficientes para aplicar o filtro de Savitzky-Golay
@@ -109,14 +109,13 @@ plt.grid(True)
 plt.xticks(range(df['Hour'].min(), df['Hour'].max() + 1))  # Define as legendas para cada hora do dia com base nos dados
 plt.tight_layout()
 
-# Mostra o gráfico
-plt.savefig("temp_sp",dpi = 300, bbox_inches='tight')
+# Salva o gráfico
+plt.savefig("temp_sp.png", dpi=300, bbox_inches='tight')
 
 # Fecha o navegador
 driver.quit()
 
 print("Gráfico gerado com sucesso")
-
 
 # Coordenadas geográficas de São Paulo
 latitude = -23.550520
@@ -141,9 +140,8 @@ try:
 
     # Imprimindo a temperatura atual em Celsius
     temp_now = f'Temperatura atual em São Paulo: {temperatura_atual_celsius:.2f}°C'
-    #client.create_tweet(text=temp_now)
     media = api.media_upload("temp_sp.png")
     client.create_tweet(text=temp_now, media_ids=[media.media_id])
-except:
-    print('Deu ruim o twitter')
+except Exception as e:
+    print(f'Deu ruim o twitter: {e}')
     pass
