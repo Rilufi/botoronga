@@ -14,7 +14,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import pytz
 from scipy.signal import savgol_filter
-import yaml
 import traceback
 from selenium.common.exceptions import TimeoutException
 
