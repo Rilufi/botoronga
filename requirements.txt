@@ -1,4 +1,3 @@
-yaml
 requests
 selenium
 webdriver_manager
