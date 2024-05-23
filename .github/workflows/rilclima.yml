@@ -1,7 +1,7 @@
 name: Rilclima
 
 
-on:
+on: push
 
 #    schedule:
 
