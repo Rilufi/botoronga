@@ -1,105 +1,24 @@
 import requests
-import os
+from auth import API_KEY, client, api
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
-from time import sleep
+from time import sleep, time
 from datetime import datetime
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import matplotlib.pyplot as plt
+from datetime import datetime
 import pytz
 from scipy.signal import savgol_filter
-import traceback
-from selenium.common.exceptions import TimeoutException
+from io import StringIO
 
-API_KEY = os.environ.get("API_KEY")
-username = os.environ.get("USERNAME")
-password = os.environ.get("PASSWORD")
-
-# Função de login
-def login(S, _username, _password):
-    try:
-        S.get("https://twitter.com/i/flow/login")
-        print("Starting Twitter")
-
-        # USERNAME
-        username_input = WebDriverWait(S, 30).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='text'][name='text'][class*='r-30o5oe']")))
-        username_input.send_keys(_username)
-        username_input.send_keys(Keys.ENTER)
-
-        # FIRST BUTTON
-        button1 = WebDriverWait(S, 30).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, "span.css-1qaijid.r-bcqeeo.r-qvutc0.r-poiln3")))
-        button1.click()
-        print("button click")
-
-        # PASSWORD
-        password_input = WebDriverWait(S, 30).until(
-            EC.presence_of_element_located((By.XPATH, '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[2]/div[1]/input')))
-        password_input.send_keys(_password)
-        password_input.send_keys(Keys.ENTER)
-        print("password done")
-
-        # LOGIN BUTTON
-        login_button = WebDriverWait(S, 30).until(
-            EC.presence_of_element_located((By.XPATH, '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div/div/div')))
-        login_button.click()
-        print("login done")
-
-        return True
-
-    except TimeoutException as te:
-        print(f"TimeoutException: {te}")
-        print("Error details:", traceback.format_exc())
-        print("Error during login")
-        return False
-
-    except Exception as e:
-        print(f"Exception during login: {str(e)}")
-        print("Error details:", traceback.format_exc())
-        print("Error during login")
-        return False
-
-# Função para postar um tweet
-def make_a_tweet(S, text, image_path):
-    try:
-        S.get("https://twitter.com/compose/tweet")
-        sleep(10)
-
-        element = WebDriverWait(S, 30).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="tweetTextarea_0"]')))
-
-        textbox = S.find_element(By.CSS_SELECTOR, '[data-testid="tweetTextarea_0"]')
-        textbox.click()
-        sleep(5)
-        textbox.send_keys(text)
-
-        # Upload da imagem
-        upload = S.find_element(By.CSS_SELECTOR, "input[type='file'][data-testid='fileInput']")
-        upload.send_keys(image_path)
-
-        sleep(5)
-
-        element = WebDriverWait(S, 30).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="tweetButton"]')))
-
-        wait = WebDriverWait(S, 10)
-        target_element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '[data-testid="tweetButton"]')))
-        S.execute_script("arguments[0].scrollIntoView();", target_element)
-        target_element.click()
-
-        print("Tweet done")
-    except Exception as e:
-        print(f"Error during tweet: {str(e)}")
-
-# Inicializar o navegador
+# Abrindo o Chrome pro Actions
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
 chrome_options = Options()
@@ -115,10 +34,8 @@ options = [
 for option in options:
     chrome_options.add_argument(option)
 
-driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
-
-# Abrir a URL e buscar os dados
 url = 'https://www.wunderground.com/history/daily/br/s%C3%A3o-paulo/SBSP'
+driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 driver.get(url)
 
 # Aguarda a presença das tabelas na página
@@ -129,10 +46,12 @@ df = pd.DataFrame(columns=['Time', 'Temperature'])
 
 for table in tables:
     # Lê a tabela HTML usando pandas
-    new_table = pd.read_html(table.get_attribute('outerHTML'))
+    html = table.get_attribute('outerHTML')
+    new_table = pd.read_html(StringIO(html))
 
     if new_table:
         # Algumas tabelas podem ter colunas adicionais ou informações extras
+        # Neste caso, estamos interessados nas colunas 'Time' e 'Temperature'
         if 'Time' in new_table[0].columns and 'Temperature' in new_table[0].columns:
             # Adiciona os dados relevantes ao DataFrame
             df = pd.concat([df, new_table[0][['Time', 'Temperature']].fillna('')], ignore_index=True)
@@ -150,7 +69,7 @@ df['Temperature'] = df['Temperature'].str.extract(r'(\d+)', expand=False).astype
 df.dropna(subset=['Time'], inplace=True)
 
 # Converte a temperatura de Fahrenheit para Celsius
-df['Temperature'] = (df['Temperature'] - 32) * 5 / 9
+df['Temperature'] = (df['Temperature'] - 32) * 5/9
 
 # Arredonda as temperaturas para no máximo duas casas decimais
 df['Temperature'] = df['Temperature'].round(2)
@@ -221,19 +140,8 @@ try:
 
     # Imprimindo a temperatura atual em Celsius
     temp_now = f'Temperatura atual em São Paulo: {temperatura_atual_celsius:.2f}°C'
-    
-    # Reabrir o navegador para postar o tweet
-    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
-    
-    if login(driver, username, password):
-        # Postando o tweet com a imagem
-        make_a_tweet(driver, temp_now, "temp_sp.png")
-    else:
-        print("Erro ao fazer login no Twitter")
-
+    media = api.media_upload("temp_sp.png")
+    client.create_tweet(text=temp_now, media_ids=[media.media_id])
 except Exception as e:
     print(f'Deu ruim o twitter: {e}')
     pass
-
-# Fecha o navegador
-driver.quit()
