@@ -17,6 +17,20 @@ from datetime import datetime
 import pytz
 from scipy.signal import savgol_filter
 from io import StringIO
+from atproto import Client
+
+
+# Inicializando Bluesky
+BSKY_HANDLE = os.environ.get("BSKY_HANDLE")  # Handle do Bluesky
+BSKY_PASSWORD = os.environ.get("BSKY_PASSWORD")  # Senha do Bluesky
+
+client = Client()
+client.login(BSKY_HANDLE, BSKY_PASSWORD)
+
+def post_to_bluesky(text, image_path):
+    with open(image_path, 'rb') as f:
+        img_data = f.read()
+    client.send_image(text=text, image=img_data, image_alt='Temperature graphic (ALT)')
 
 # Abrindo o Chrome pro Actions
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
@@ -142,6 +156,7 @@ try:
     temp_now = f'Temperatura atual em São Paulo: {temperatura_atual_celsius:.2f}°C'
     media = api.media_upload("temp_sp.png")
     client.create_tweet(text=temp_now, media_ids=[media.media_id])
+    post_to_bluesky(temp_now,"temp_sp.png")
 except Exception as e:
     print(f'Deu ruim o twitter: {e}')
     pass
