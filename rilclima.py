@@ -1,4 +1,5 @@
 import requests
+import os
 from auth import API_KEY, client, api
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
