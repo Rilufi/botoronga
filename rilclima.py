@@ -25,13 +25,13 @@ from atproto import Client
 BSKY_HANDLE = os.environ.get("BSKY_HANDLE")  # Handle do Bluesky
 BSKY_PASSWORD = os.environ.get("BSKY_PASSWORD")  # Senha do Bluesky
 
-client = Client()
-client.login(BSKY_HANDLE, BSKY_PASSWORD)
+blsk = Client()
+blsk.login(BSKY_HANDLE, BSKY_PASSWORD)
 
 def post_to_bluesky(text, image_path):
     with open(image_path, 'rb') as f:
         img_data = f.read()
-    client.send_image(text=text, image=img_data, image_alt='Temperature graphic (ALT)')
+    blsk.send_image(text=text, image=img_data, image_alt='Temperature graphic (ALT)')
 
 # Abrindo o Chrome pro Actions
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
