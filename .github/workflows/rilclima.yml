@@ -55,5 +55,9 @@ jobs:
                   ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
                   ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+
+                  BSKY_HANDLE:  ${{ secrets.BSKY_HANDLE }}         
+
+                  BSKY_PASSWORD:  ${{ secrets.BSKY_PASSWORD }}
                   
         run: python rilclima.py
