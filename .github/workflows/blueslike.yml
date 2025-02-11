@@ -30,11 +30,4 @@ jobs:
           BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python blueslike.py
-
-      - name: Atualizar arquivo de legenda
-        run: |
-          git config --global user.email "github-actions@example.com"
-          git config --global user.name "GitHub Actions"
-          git add interactions.txt
-          git commit -m "Atualizar arquivo de interações [skip ci]"  # Ignorar a execução do workflow para este commit
-          git push
+        
