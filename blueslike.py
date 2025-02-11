@@ -147,7 +147,7 @@ if __name__ == "__main__":
     bsky_client = bsky_login_session(PDS_URL, BSKY_HANDLE, BSKY_PASSWORD)
 
     # Define hashtags e palavras-chave para busca
-    hashtags = ["#issoehpratestarobotoronga"]
+    hashtags = ["#temperatura"]
 
     # Calcula as datas de ontem e hoje no formato ISO com timezone-aware completo
     today = datetime.now(timezone.utc)
