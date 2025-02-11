@@ -34,7 +34,8 @@ jobs:
 
       - name: Create interactions file if it doesn't exist
         if: steps.download-interactions.outcome != 'success'
-        run: echo '{"likes": []}' > interactions.json
+        run: |
+          echo '{"likes": []}' > interactions.json
 
       - name: Display interactions file content
         run: cat interactions.json
