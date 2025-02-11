@@ -24,31 +24,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests atproto
 
-      - name: Try to download interactions file
-        id: download-interactions
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          name: interactions
-          path: .
-
-      - name: Create interactions file if it doesn't exist
-        if: steps.download-interactions.outcome != 'success'
-        run: |
-          echo '{"likes": []}' > interactions.json
-
-      - name: Display interactions file content
-        run: cat interactions.json
-
       - name: Run bot
         env:
           BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
           BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
         run: python blueslike.py
 
-      - name: Save interactions file
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: interactions
-          path: interactions.json
+      - name: Atualizar arquivo de legenda
+        run: |
+          git config --global user.email "github-actions@example.com"
+          git config --global user.name "GitHub Actions"
+          git add interactions.txt
+          git commit -m "Atualizar arquivo de interações [skip ci]"  # Ignorar a execução do workflow para este commit
+          git push
