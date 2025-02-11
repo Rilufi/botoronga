@@ -13,7 +13,7 @@ BOT_NAME = "Botoronga"  # Nome do bot para evitar interagir com os próprios pos
 
 # Configurações do GitHub
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")  # Token de acesso do GitHub
-GITHUB_REPO = "seu-usuario/seu-repositorio"  # Substitua pelo seu usuário/repositório
+GITHUB_REPO = "Rilufi/botoronga"  # Substitua pelo seu usuário/repositório
 GITHUB_FILE_PATH = "interactions.txt"  # Caminho do arquivo no repositório
 
 # Limites diários e ações permitidas por hora
