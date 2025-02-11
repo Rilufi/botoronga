@@ -104,6 +104,7 @@ def like_post_bluesky(client: Client, uri: str, cid: str, interactions):
     if uri not in interactions["likes"]:
         client.like(uri=uri, cid=cid)
         interactions["likes"].append(uri)
+        save_interactions(interactions)  # Salva as interações após cada like
         print(f"Post curtido no Bluesky: {uri}")
     else:
         print(f"Post já curtido anteriormente: {uri}")
@@ -151,5 +152,4 @@ if __name__ == "__main__":
         except requests.exceptions.HTTPError as e:
             print(f"Erro ao buscar posts para {hashtag} no Bluesky: {e}")
 
-    save_interactions(interactions)
     print("Concluído.")
