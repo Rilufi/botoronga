@@ -22,15 +22,18 @@ INTERACTIONS_FILE = 'interactions.json'
 def load_interactions():
     """Carrega interações de um arquivo JSON."""
     if os.path.exists(INTERACTIONS_FILE):
-        with open(INTERACTIONS_FILE, 'r') as file:
-            try:
+        try:
+            with open(INTERACTIONS_FILE, 'r') as file:
                 interactions = json.load(file)
-                print(f"Interações carregadas: {interactions}")
-                return interactions
-            except json.JSONDecodeError:
-                print(f"O arquivo {INTERACTIONS_FILE} está vazio ou corrompido. Inicializando com valores padrão.")
-                return {"likes": []}
-    print(f"Arquivo {INTERACTIONS_FILE} não encontrado. Inicializando com valores padrão.")
+                if isinstance(interactions, dict) and "likes" in interactions:
+                    print(f"Interações carregadas: {interactions}")
+                    return interactions
+                else:
+                    print(f"Arquivo {INTERACTIONS_FILE} mal formatado. Inicializando com valores padrão.")
+        except json.JSONDecodeError:
+            print(f"Arquivo {INTERACTIONS_FILE} está vazio ou corrompido. Inicializando com valores padrão.")
+    else:
+        print(f"Arquivo {INTERACTIONS_FILE} não encontrado. Inicializando com valores padrão.")
     return {"likes": []}
 
 def save_interactions(interactions):
@@ -56,8 +59,11 @@ def check_rate_limit(response):
         reset_time = datetime.fromtimestamp(rate_limit_reset, timezone.utc)
         current_time = datetime.now(timezone.utc)
         wait_seconds = (reset_time - current_time).total_seconds()
-        print(f"Limite de requisições atingido. Aguardando {wait_seconds:.0f} segundos para o reset.")
-        time.sleep(max(wait_seconds, 0))
+        if wait_seconds > 0:
+            print(f"Limite de requisições atingido. Aguardando {wait_seconds:.0f} segundos para o reset.")
+            time.sleep(wait_seconds)
+        else:
+            print("Limite de requisições atingido, mas o tempo de reset já passou.")
 
 def post_contains_hashtags(post: Dict, hashtags: List[str]) -> bool:
     """Verifica se o conteúdo do post contém alguma das hashtags especificadas."""
