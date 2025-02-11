@@ -2,7 +2,6 @@ import os
 from typing import Dict, List
 import requests
 from atproto import Client
-import json
 from datetime import datetime, timedelta, timezone
 import time
 
@@ -12,35 +11,69 @@ BSKY_PASSWORD = os.environ.get("BSKY_PASSWORD")  # Senha do Bluesky
 PDS_URL = "https://bsky.social"  # URL do Bluesky
 BOT_NAME = "Botoronga"  # Nome do bot para evitar interagir com os próprios posts
 
+# Configurações do GitHub
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")  # Token de acesso do GitHub
+GITHUB_REPO = "seu-usuario/seu-repositorio"  # Substitua pelo seu usuário/repositório
+GITHUB_FILE_PATH = "interactions.txt"  # Caminho do arquivo no repositório
+
 # Limites diários e ações permitidas por hora
 DAILY_LIMIT = 11666  # Limite de ações diárias
 HOURLY_LIMIT = DAILY_LIMIT // 24  # Limite de ações por hora
 
-# Arquivo para armazenar interações
-INTERACTIONS_FILE = 'interactions.json'
-
 def load_interactions():
-    """Carrega interações de um arquivo JSON."""
-    if os.path.exists(INTERACTIONS_FILE):
-        try:
-            with open(INTERACTIONS_FILE, 'r') as file:
-                interactions = json.load(file)
-                if isinstance(interactions, dict) and "likes" in interactions:
-                    print(f"Interações carregadas: {interactions}")
-                    return interactions
-                else:
-                    print(f"Arquivo {INTERACTIONS_FILE} mal formatado. Inicializando com valores padrão.")
-        except json.JSONDecodeError:
-            print(f"Arquivo {INTERACTIONS_FILE} está vazio ou corrompido. Inicializando com valores padrão.")
+    """Carrega interações do arquivo interactions.txt no GitHub."""
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE_PATH}"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    response = requests.get(url, headers=headers)
+    
+    if response.status_code == 200:
+        content = response.json().get("content", "")
+        if content:
+            # Decodifica o conteúdo (base64) e divide em linhas
+            import base64
+            decoded_content = base64.b64decode(content).decode("utf-8")
+            return decoded_content.splitlines()
+    elif response.status_code == 404:
+        print(f"Arquivo {GITHUB_FILE_PATH} não encontrado no repositório. Inicializando com lista vazia.")
     else:
-        print(f"Arquivo {INTERACTIONS_FILE} não encontrado. Inicializando com valores padrão.")
-    return {"likes": []}
+        print(f"Erro ao carregar interações: {response.status_code} - {response.text}")
+    
+    return []
 
 def save_interactions(interactions):
-    """Salva interações em um arquivo JSON."""
-    with open(INTERACTIONS_FILE, 'w') as file:
-        json.dump(interactions, file, indent=4)
-    print(f"Interações salvas: {interactions}")
+    """Salva interações no arquivo interactions.txt no GitHub."""
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE_PATH}"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    
+    # Obtém o SHA do arquivo atual (necessário para atualização)
+    response = requests.get(url, headers=headers)
+    sha = response.json().get("sha") if response.status_code == 200 else None
+    
+    # Converte a lista de interações em uma string
+    content = "\n".join(interactions)
+    
+    # Codifica o conteúdo em base64
+    import base64
+    encoded_content = base64.b64encode(content.encode("utf-8")).decode("utf-8")
+    
+    # Envia a requisição para atualizar o arquivo
+    data = {
+        "message": "Atualizando interações",
+        "content": encoded_content,
+        "sha": sha
+    }
+    response = requests.put(url, headers=headers, json=data)
+    
+    if response.status_code == 200:
+        print(f"Interações salvas no GitHub: {GITHUB_FILE_PATH}")
+    else:
+        print(f"Erro ao salvar interações: {response.status_code} - {response.text}")
 
 def bsky_login_session(pds_url: str, handle: str, password: str) -> Client:
     """Autentica no Bluesky e retorna a instância do cliente."""
@@ -101,9 +134,9 @@ def search_posts_by_hashtags(session: Client, hashtags: List[str], since: str, u
 
 def like_post_bluesky(client: Client, uri: str, cid: str, interactions):
     """Curtir um post no Bluesky."""
-    if uri not in interactions["likes"]:
+    if uri not in interactions:
         client.like(uri=uri, cid=cid)
-        interactions["likes"].append(uri)
+        interactions.append(uri)
         save_interactions(interactions)  # Salva as interações após cada like
         print(f"Post curtido no Bluesky: {uri}")
     else:
