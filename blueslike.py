@@ -134,13 +134,23 @@ def search_posts_by_hashtags(session: Client, hashtags: List[str], since: str, u
 
 def like_post_bluesky(client: Client, uri: str, cid: str, interactions):
     """Curtir um post no Bluesky."""
-    if uri not in interactions:
+    if f"like:{uri}" not in interactions:
         client.like(uri=uri, cid=cid)
-        interactions.append(uri)
+        interactions.append(f"like:{uri}")
         save_interactions(interactions)  # Salva as interações após cada like
         print(f"Post curtido no Bluesky: {uri}")
     else:
         print(f"Post já curtido anteriormente: {uri}")
+
+def repost_post_bluesky(client: Client, uri: str, cid: str, interactions):
+    """Repostar um post no Bluesky."""
+    if f"repost:{uri}" not in interactions:
+        client.repost(uri=uri, cid=cid)
+        interactions.append(f"repost:{uri}")
+        save_interactions(interactions)  # Salva as interações após cada repost
+        print(f"Post repostado no Bluesky: {uri}")
+    else:
+        print(f"Post já repostado anteriormente: {uri}")
 
 if __name__ == "__main__":
     interactions = load_interactions()
@@ -177,7 +187,8 @@ if __name__ == "__main__":
                     if post_contains_hashtags(post, [hashtag]):
                         if action_counter < actions_per_hour:
                             like_post_bluesky(bsky_client, uri, cid, interactions)
-                            action_counter += 1
+                            repost_post_bluesky(bsky_client, uri, cid, interactions)
+                            action_counter += 2  # Conta como duas ações (like e repost)
 
                     if action_counter >= actions_per_hour:
                         print("Limite de ações por hora atingido no Bluesky.")
