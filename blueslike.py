@@ -24,16 +24,20 @@ def load_interactions():
     if os.path.exists(INTERACTIONS_FILE):
         with open(INTERACTIONS_FILE, 'r') as file:
             try:
-                return json.load(file)
+                interactions = json.load(file)
+                print(f"Interações carregadas: {interactions}")
+                return interactions
             except json.JSONDecodeError:
                 print(f"O arquivo {INTERACTIONS_FILE} está vazio ou corrompido. Inicializando com valores padrão.")
                 return {"likes": []}
+    print(f"Arquivo {INTERACTIONS_FILE} não encontrado. Inicializando com valores padrão.")
     return {"likes": []}
 
 def save_interactions(interactions):
     """Salva interações em um arquivo JSON."""
     with open(INTERACTIONS_FILE, 'w') as file:
         json.dump(interactions, file)
+    print(f"Interações salvas: {interactions}")
 
 def bsky_login_session(pds_url: str, handle: str, password: str) -> Client:
     """Autentica no Bluesky e retorna a instância do cliente."""
@@ -95,14 +99,15 @@ def like_post_bluesky(client: Client, uri: str, cid: str, interactions):
         client.like(uri=uri, cid=cid)
         interactions["likes"].append(uri)
         print(f"Post curtido no Bluesky: {uri}")
+    else:
+        print(f"Post já curtido anteriormente: {uri}")
 
 if __name__ == "__main__":
     interactions = load_interactions()
     bsky_client = bsky_login_session(PDS_URL, BSKY_HANDLE, BSKY_PASSWORD)
 
     # Define hashtags e palavras-chave para busca
-    hashtags = [
-        "#issoehpratestarobotoronga" ]
+    hashtags = ["#issoehpratestarobotoronga"]
 
     # Calcula as datas de ontem e hoje no formato ISO com timezone-aware completo
     today = datetime.now(timezone.utc)
@@ -130,7 +135,7 @@ if __name__ == "__main__":
                         continue
 
                     if post_contains_hashtags(post, [hashtag]):
-                        if action_counter < actions_per_hour and uri not in interactions["likes"]:
+                        if action_counter < actions_per_hour:
                             like_post_bluesky(bsky_client, uri, cid, interactions)
                             action_counter += 1
 
