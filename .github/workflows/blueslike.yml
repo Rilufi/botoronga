@@ -32,9 +32,12 @@ jobs:
           name: interactions
           path: .
 
-      - name: Create empty interactions file if it doesn't exist
+      - name: Create interactions file if it doesn't exist
         if: steps.download-interactions.outcome != 'success'
-        run: echo "[]" > interactions.json
+        run: echo '{"likes": []}' > interactions.json
+
+      - name: Display interactions file content
+        run: cat interactions.json
 
       - name: Run bot
         env:
@@ -43,6 +46,7 @@ jobs:
         run: python blueslike.py
 
       - name: Save interactions file
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: interactions
