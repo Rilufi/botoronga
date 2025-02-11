@@ -39,7 +39,7 @@ def load_interactions():
 def save_interactions(interactions):
     """Salva interações em um arquivo JSON."""
     with open(INTERACTIONS_FILE, 'w') as file:
-        json.dump(interactions, file)
+        json.dump(interactions, file, indent=4)
     print(f"Interações salvas: {interactions}")
 
 def bsky_login_session(pds_url: str, handle: str, password: str) -> Client:
