@@ -1,12 +1,11 @@
 name: Blueslike
 
-
 on:
-    workflow_dispatch:
-    workflow_run:
-      workflows: ["Bluesclima"]
-      types:
-        - completed
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Bluesclima"]
+    types:
+      - completed
 
 jobs:
   run-bot:
@@ -25,11 +24,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests atproto
 
-      - name: Restore interactions file
+      - name: Try to download interactions file
+        id: download-interactions
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           name: interactions
           path: .
+
+      - name: Create empty interactions file if it doesn't exist
+        if: steps.download-interactions.outcome != 'success'
+        run: echo "[]" > interactions.json
 
       - name: Run bot
         env:
