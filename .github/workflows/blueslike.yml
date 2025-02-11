@@ -9,55 +9,36 @@ on:
         - completed
 
 jobs:
-  tweet:
-    name: Tweet
-    
+  run-bot:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout 🛎
-        uses: actions/checkout@v2
-        
-      - name: Keep this repo alive
-        uses: gautamkrishnar/keepalive-workflow@master
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Python 🐍
-        uses: actions/setup-python@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.x
+          python-version: '3.9'
 
-      - name: Cache Python packages 💾
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-            ${{ runner.os }}-
-
-      - name: Remove Chrome
-        run: sudo apt purge google-chrome-stable
-
-      - name: Install packages ⚙
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install requests atproto
 
-      # Use HEREDOC for `run` to escape possible single and double quotes in the message.
-      - name: weather now 🌤️
+      - name: Restore interactions file
+        uses: actions/download-artifact@v4
+        with:
+          name: interactions
+          path: .
+
+      - name: Run bot
         env:
-                  CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
-
-                  CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
-
-                  API_KEY: ${{ secrets.API_KEY }}
-
-                  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-
-                  ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
-
-                  BSKY_HANDLE:  ${{ secrets.BSKY_HANDLE }}         
-
-                  BSKY_PASSWORD:  ${{ secrets.BSKY_PASSWORD }}
-                  
+          BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
+          BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
         run: python blueslike.py
+
+      - name: Save interactions file
+        uses: actions/upload-artifact@v4
+        with:
+          name: interactions
+          path: interactions.json
