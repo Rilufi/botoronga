@@ -60,4 +60,4 @@ jobs:
 
                   BSKY_PASSWORD:  ${{ secrets.BSKY_PASSWORD }}
                   
-        run: python bluesclima.py && python blueslike.py
+        run: python bluesclima.py
