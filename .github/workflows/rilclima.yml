@@ -68,3 +68,11 @@ jobs:
                   BSKY_PASSWORD:  ${{ secrets.BSKY_PASSWORD }}
                   
         run: python rilclima.py
+
+      - name: Commit and Push changes
+          uses: stefanzweifel/git-auto-commit-action@v5
+          with:
+            commit_message: "Automated: Atualização diária da APOD"
+            file_pattern: "imagens/clima_sp.png imagens/weather_sp.png"
+            commit_author: "GitHub Actions <actions@github.com>"
+            skip_fetch: true
