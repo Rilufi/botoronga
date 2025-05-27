@@ -16,6 +16,9 @@ from io import StringIO
 from scipy.signal import savgol_filter
 import pytz
 
+# Cria a pasta data se não existir
+os.makedirs('data', exist_ok=True)
+
 # Inicializando o Chrome para Web Scraping
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
@@ -98,22 +101,37 @@ data_brasil = data_eua.astimezone(fuso_brasil)
 # Formata a data no formato dd/mm/yyyy
 data = data_brasil.strftime('%d/%m/%Y')
 
-# Cria um gráfico de linha suavizado
+# Versão em português
+plt.figure(figsize=(10, 6))
 plt.plot(df_avg['Hour'], df_avg['Temperature_smooth'], marker='o', label='Suavizado')
 plt.title(f'Variação da Temperatura em São Paulo {data}')
 plt.xlabel('Hora do Dia')
 plt.ylabel('Temperatura Média (°C)')
 plt.grid(True)
-plt.xticks(range(df['Hour'].min(), df['Hour'].max() + 1))  # Define as legendas para cada hora do dia com base nos dados
+# Corrige o erro convertendo para inteiro e garantindo que temos valores válidos
+hour_min = int(df_avg['Hour'].min())
+hour_max = int(df_avg['Hour'].max())
+plt.xticks(range(hour_min, hour_max + 1))
 plt.tight_layout()
+plt.savefig(os.path.join('data', 'clima_sp.png'), dpi=300, bbox_inches='tight')
+plt.close()
 
-# Salva o gráfico
-plt.savefig("temp_sp.png", dpi=300, bbox_inches='tight')
+# Versão em inglês
+plt.figure(figsize=(10, 6))
+plt.plot(df_avg['Hour'], df_avg['Temperature_smooth'], marker='o', label='Smoothed')
+plt.title(f'Temperature Variation in São Paulo {data}')
+plt.xlabel('Time of Day')
+plt.ylabel('Average Temperature (°C)')
+plt.grid(True)
+plt.xticks(range(hour_min, hour_max + 1))
+plt.tight_layout()
+plt.savefig(os.path.join('data', 'weather_sp.png'), dpi=300, bbox_inches='tight')
+plt.close()
 
 # Fecha o navegador
 driver.quit()
 
-print("Gráfico gerado com sucesso")
+print("Gráficos gerados com sucesso")
 
 # Coordenadas geográficas de São Paulo
 latitude = -23.550520
@@ -138,9 +156,8 @@ try:
 
     # Imprimindo a temperatura atual em Celsius
     temp_now = f'Temperatura atual em São Paulo: {temperatura_atual_celsius:.2f}°C'
-    media = api.media_upload("temp_sp.png")
+    media = api.media_upload(os.path.join('data', 'clima_sp.png'))
     client.create_tweet(text=temp_now, media_ids=[media.media_id])
 
 except Exception as e:
-    print(f'Deu ruim no Twitter: {e}')
-    pass
+    print(f'Erro ao postar no Twitter: {e}')
