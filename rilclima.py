@@ -16,8 +16,8 @@ from io import StringIO
 from scipy.signal import savgol_filter
 import pytz
 
-# Cria a pasta data se não existir
-os.makedirs('data', exist_ok=True)
+# Cria a pasta imagens se não existir
+os.makedirs('imagens', exist_ok=True)
 
 # Inicializando o Chrome para Web Scraping
 chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
@@ -113,7 +113,7 @@ hour_min = int(df_avg['Hour'].min())
 hour_max = int(df_avg['Hour'].max())
 plt.xticks(range(hour_min, hour_max + 1))
 plt.tight_layout()
-plt.savefig(os.path.join('data', 'clima_sp.png'), dpi=300, bbox_inches='tight')
+plt.savefig(os.path.join('imagens', 'clima_sp.png'), dpi=300, bbox_inches='tight')
 plt.close()
 
 # Versão em inglês
@@ -125,7 +125,7 @@ plt.ylabel('Average Temperature (°C)')
 plt.grid(True)
 plt.xticks(range(hour_min, hour_max + 1))
 plt.tight_layout()
-plt.savefig(os.path.join('data', 'weather_sp.png'), dpi=300, bbox_inches='tight')
+plt.savefig(os.path.join('imagens', 'weather_sp.png'), dpi=300, bbox_inches='tight')
 plt.close()
 
 # Fecha o navegador
@@ -156,7 +156,7 @@ try:
 
     # Imprimindo a temperatura atual em Celsius
     temp_now = f'Temperatura atual em São Paulo: {temperatura_atual_celsius:.2f}°C'
-    media = api.media_upload(os.path.join('data', 'clima_sp.png'))
+    media = api.media_upload(os.path.join('imagens', 'clima_sp.png'))
     client.create_tweet(text=temp_now, media_ids=[media.media_id])
 
 except Exception as e:
